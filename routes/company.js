@@ -75,8 +75,14 @@ module.exports = (app) => {
     app.get('/company-profile/:id', (req, res) => {
         Company.findOne({'_id':req.params.id}, (err, data) => {
             var avg = arrayAverage(data.ratingNumber);
-            
-            res.render('company/company-profile', {title: 'Company Name', user:req.user, id: req.params.id, data:data, average: avg});
+            console.log(avg);
+            res.render('company/company-profile', {
+                title: 'Company Name',
+                user:req.user,
+                id: req.params.id,
+                data: data,
+                average: avg
+            });
         });
     });
     
@@ -129,13 +135,21 @@ module.exports = (app) => {
     
     app.get('/:name/employees', (req, res) => {
         Company.findOne({'name':req.params.name}, (err, data) => {
-            res.render('company/employees', {title: 'Company EMployees', user: req.user, data: data});
+            res.render('company/employees', {
+                title: 'Company EMployees',
+                user: req.user,
+                data: data
+            });
         });
     });
     
     app.get('/companies/leaderboard', (req, res) => {
         Company.find({}, (err, result) => {
-            res.render('company/leaderboard', {title: 'Companies Leadebaord || RateMe', user: req.user, data: result});
+            res.render('company/leaderboard', {
+                title: 'Companies Leadebaord || RateMe',
+                user: req.user,
+                data: result
+            });
         }).sort({'ratingSum': -1});
     });
     
@@ -151,8 +165,9 @@ module.exports = (app) => {
             if(err){
                 console.log(err);
             }
-            
-            res.redirect('/company-profile/'+data[0]._id);
+            // console.log(data);
+            // console.log('data[0] ',data[0]);
+            res.redirect('/company-profile/' + data[0]._id);
         });
     });
     

@@ -96,7 +96,8 @@ module.exports = (app, passport) => {
             
             function(rand, user, callback){
                 var smtpTransport = nodemailer.createTransport({
-                    service: 'Gmail',
+                    service: 'gmail',
+                    host: 'smtp.gmail.com',
                     auth: {
                         user: secret.auth.user,
                         pass: secret.auth.pass

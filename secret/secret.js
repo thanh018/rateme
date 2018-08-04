@@ -1,12 +1,12 @@
 module.exports = {
     auth: {
-        user: 'add your gmail here',
-        pass: 'add gmail password'
+        user: 'lookat018@gmail.com',
+        pass: ''
     },
     
     facebook: {
-        clientID: '1861759354108916', //Facebook login app id
-        clientSecret: 'c88516cf29c19d5d591189d013a7c254', //Facebook login secret key
+        clientID: '324124764807177', //Facebook login app id
+        clientSecret: 'b6d6b39f6e2b20d7bd7c6b28c0816978', //Facebook login secret key
         profileFields: ['email', 'displayName'],
         callbackURL: 'http://localhost:3000/auth/facebook/callback',
         passReqToCallback: true

@@ -56,7 +56,7 @@
 										<h1>
 											<%= data.ratingNumber.length %>
 										</h1>
-										<h2>Ratings</h2>
+										<h2>Ratings (times)</h2>
 										<h3>Total ratings received</h3>
 									</div>
 
@@ -95,7 +95,7 @@
 								    <% data.companyRating.forEach(function(val){ %>
 								        <div class="col-md-12 reviewDiv">
                                             <div class="col-md-2">
-                                                <img src="/images/<%= val.companyImage %>" width="100px" height="100px">
+                                                <img src="/uploads/<%= val.companyImage %>" width="100px" height="100px">
                                             </div>
 
                                             <div class="col-md-8">

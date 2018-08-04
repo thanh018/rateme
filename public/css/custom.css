@@ -135,10 +135,10 @@ input[type="submit"]{
 
 .companyListItemInfo{
     margin: 0;
-    padding: 10px 0px 0px 10px;
+    padding: 10px;
     height: 120px;
-    width: 250px;
-    float: right;
+    width: 215px;
+    float: left;
 }
 
 .companyListItemInfo h5{

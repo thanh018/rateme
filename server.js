@@ -17,7 +17,7 @@ var moment = require('moment');
 var app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/rateme');
+mongoose.connect('mongodb://localhost:27017/rateme');
 
 require('./config/passport');
 require('./secret/secret');
@@ -47,6 +47,12 @@ app.use(passport.session());
 
 app.locals._ = _;
 app.locals.moment = moment;
+
+// var globalVar = (req, res, next) => {
+//     res.locals._ = _;
+// }
+
+// app.use(globalVar);
 
 
 require('./routes/user')(app, passport);

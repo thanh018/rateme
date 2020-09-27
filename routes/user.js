@@ -1,7 +1,8 @@
 var nodemailer = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
 var async = require("async");
-
+var get = require("lodash/get");
+var isEmpty = require("lodash/isEmpty");
 var crypto = require("crypto");
 var User = require("../models/user");
 var Company = require("../models/company");
@@ -9,7 +10,8 @@ var secret = require("../secret/secret");
 
 module.exports = (app, passport) => {
   app.get("/", (req, res, next) => {
-    if (req.session.cookie.originalMaxAge !== null) res.redirect("/home");
+    const user = get(req, 'user', {});
+    if (!isEmpty(user)) res.redirect("/home");
     else
       Company.find({}, (err, result) => {
         res.render("index", { title: "Index", data: result });
@@ -17,12 +19,16 @@ module.exports = (app, passport) => {
   });
 
   app.get("/signup", (req, res) => {
-    var errors = req.flash("error");
-    res.render("user/signup", {
-      title: "Sign Up",
-      messages: errors,
-      hasErrors: errors.length > 0,
-    });
+    const user = get(req, 'user', {});
+    if (!isEmpty(user)) res.redirect("/home");
+    else {
+      const errors = req.flash("error");
+      res.render("user/signup", {
+        title: "Sign Up",
+        messages: errors,
+        hasErrors: errors.length > 0,
+      });
+    }
   });
 
   app.post(
@@ -36,28 +42,30 @@ module.exports = (app, passport) => {
   );
 
   app.get("/login", (req, res) => {
-    var errors = req.flash("error");
-    res.render("user/login", {
-      title: "Login",
-      messages: errors,
-      hasErrors: errors.length > 0,
-    });
+    const user = get(req, 'user', {});
+    if (!isEmpty(user)) res.redirect("/home");
+    else {
+      var errors = req.flash("error");
+      res.render("user/login", {
+        title: "Login",
+        messages: errors,
+        hasErrors: errors.length > 0,
+      });
+    }
   });
 
   app.post(
     "/login",
     loginValidation,
     passport.authenticate("local.login", {
-      // successRedirect: '/home',
+      successRedirect: '/home',
       failureRedirect: "/login",
       failureFlash: true,
     }),
     (req, res) => {
-      if (req.body.rememberme) {
-        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-      } else {
-        req.session.cookie.expires = null;
-      }
+      if (req.body.rememberme)
+        req.session.cookie.maxAge = 30*24*60*60*1000; // 30 days
+      else req.session.cookie.expires = null;
       res.redirect("/home");
     }
   );

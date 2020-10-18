@@ -1,23 +1,13 @@
-<nav class="navbar">
-  <div class="container-fluid">
-    
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="fa fa-bars"></i></a>
-    </div>
-
-    
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
-      <ul class="nav navbar-nav navbar-right nav_bar">
-          <li><a href="#"><%= user.fullname %></a></li>
-          <li><a href="/logout">Logout</a></li>
-      </ul>
-    </div>
-  </div>
+<nav class="navbar navbar-dark bg-dark d-flex justify-content-between">
+  
+  <ul class="d-flex">
+    <a class="navbar-brand" href="/home">RateMe</a>
+    <li><a class="nav-link" href="/companies">Companies</a></li>
+    <li><a class="nav-link" href="/company/search">Company Search</a></li>
+    <li><a class="nav-link" href="/companies/leaderboard">Leaderboard</a></li>
+  </ul>
+  <ul class="d-flex">
+    <li><a class="nav-link text-capitalize" href="/home"><%= user.fullname %></a></li>
+    <li><a class="nav-link" href="/logout">Logout</a></li>
+  </ul>
 </nav>

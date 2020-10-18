@@ -1,0 +1,370 @@
+/* begin common */
+  body {
+    overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 14px;
+  }
+
+  h1, h2, h3, h4, h5, p, span, a, button {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #6487ad;
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+
+  .mainTitle {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    color: #333;
+  }
+
+  .title {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .subTitle {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+  }
+
+  .subText {
+    font-size: 14px;
+    color: #73879C;
+  }
+
+  #page-content-wrapper {
+    width: 100%;
+  }
+
+/* end common */
+
+/* begin form */
+  .form-group input {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .form-group a[type="button"] {
+    height: 40px;
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn-facebook {
+    background: #3B5998;
+    color: #fff;
+    border: 1px solid #263961;
+  }
+
+  .form-group a[type="button"] i {
+    margin-right: 10px;
+  }
+
+  .btn-facebook:active, .btn-facebook:hover {
+    background: #263961;
+    color: #fff;
+  }
+
+  .form-group-checkbox {
+    margin-bottom: 5px;
+  }
+
+  .btnFile {
+    font-size: 14px;
+  }
+
+  .modalFile .progress {
+    width: 100%;
+  }
+
+  .modalFile button {
+    font-size: 14px;
+  }
+
+  .modalFile .modal-title {
+    color: #73879C;
+    font-size: 16px;
+  }
+/* end form */
+
+/* begin errors */
+  .errors .alert-danger {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+  .errors .close {
+    font-size: 18px;
+  }
+/* end errors */
+
+/* begin company */
+  .companyItem {
+    display: flex;
+    margin-bottom: 15px;
+    box-shadow: 1px 1px 3px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .companyImage {
+    width: 100px;
+    height: 100px;
+  }
+
+  .companyInfo {
+    padding: 5px 15px;
+    color: #73879C;
+  }
+
+  .companyInfo h5 {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  .companyInfo span {
+    font-size: 12px;
+  }
+
+  .companyInfo i {
+    font-size: 12px;
+  }
+/* end company */
+
+/* begin company profile */
+  .groupBtn a {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .companyProfile i > * {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+  }
+/* end company profile */
+
+/* begin homepage */
+  .homepage .iconItem {
+    font-size: 40px;
+    color: #73879C;
+  }
+
+  .groups .subText {
+    color: #73879C;
+  }
+
+  .groups a {
+    width: 50%;
+  }
+
+  .homepage .groups {
+    margin-top: 50px;
+  }
+/* end homepage */
+
+/* Review */
+  .reviews .btn {
+    min-width: 200px;
+    font-size: 14px;
+  }
+
+  .reviewItem {
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 3px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .reviewItem .subTitle {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+  .reviewItem .subText,
+  .reviewItem .star{
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 14px;
+
+  }
+
+  .reviewImage {
+    width: 100px;
+  }
+
+  .reviewInfo {
+    width: calc(50% - 50px);
+    padding: 15px;
+  }
+
+  .reviewRating {
+    width: calc(50% - 50px);
+    padding: 15px;
+    border-left: 1px solid #ddd;
+  }
+
+/* end Review */
+
+/* begin chat */
+
+.chat {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chat li {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body {
+  margin-left: 60px;
+}
+
+.chat li.right .chat-body {
+  margin-right: 60px;
+}
+
+.chat li .chat-body p {
+  margin: 0;
+  color: #73879C;
+  float: left;
+}
+
+.panel-body {
+  overflow-y: scroll;
+  overflow-x:auto;
+  height: 250px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #555;
+}
+
+/* end chat */
+
+#star_rating img{
+  width: 50px;
+  height: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

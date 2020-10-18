@@ -3,7 +3,28 @@
     overflow-x: hidden;
     font-family: 'Roboto', sans-serif;
     color: #333;
+    background-color: #f3f2f0;
     font-size: 14px;
+  }
+
+  .borderGray {
+    border: 1px solid #e6e2db;
+    border-radius: 9px;
+  }
+
+  .borderGrayRight {
+    border-right: 1px solid #e6e2db;
+  }
+
+  .bgWhite {
+    background-color: #fff;
+    padding: 15px;
+  }
+
+  .imgCircle {
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
   }
 
   h1, h2, h3, h4, h5, p, span, a, button {

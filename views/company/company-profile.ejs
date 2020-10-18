@@ -6,74 +6,79 @@
     <div class="container">
       <h4 class="mainTitle">Company Profile</h4>
       <div class="row">
-        <div class="col-md-3 companyProfile">
-          <%if (data.image.length > 0) { %>
-            <img
-              src="/uploads/<%= data.image %>"
-              width="200px"
-              height="200px"
-              alt="Logo"
-            />
-          <% } else {%>
-            <img
-              src="http://placehold.it/200x200"
-              width="200px"
-              height="200px"
-              alt="Logo"
-            />
-          <% } %>
-          <h3 class="subTitle mb-1"><%= data.name %></h3>
-          <i class="fa fa-map-marker">
-            <span><%= data.city %>, <%= data.country %></span>
-          </i>
-          <br />
-          <i class="fa fa-building-o">
-            <span><%= data.sector %></span>
-          </i>
-          <br />
-          <i class="fa fa-external-link" >
-            <a href="http://<%= data.webiste %>" target="_blank">
-              http://<%= data.website %>
-            </a>
-          </i>
-
-          <h3 class="subTitle mb-1">Average Rating</h3>
-          <h5 class="star mb-0" data-score="<%= average %>"></h5>
-          <p class="subText">Based on <%= data.ratingNumber.length %> review(s)</p>
-
-          <div class="groupBtn">
-            <a
-              href="/review/<%= data._id %>"
-              class="btn btn-block btn-success"
-            >
-              Rate this company
-            </a>
-  
-            <a
-              href="/<%= data.name %>/employees"
-              class="btn btn-block btn-info"
-            >
-              View Company Employees
-            </a>
-  
-            <% if(user.company.name != data.name) {%>
-              <a
-                href="/company/register-employee/<%= id %>"
-                class="btn btn-block btn-primary"
-              >
-                Register me as an employee
-              </a>
-            <% } else { %>
-              <h2 class="subText text-center">You are an employee</h2>
-            <% }%>
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-11 companyProfile borderGray bgWhite text-center">
+              <%if (data.image.length > 0) { %>
+                <img
+                  src="/uploads/<%= data.image %>"
+                  width="150"
+                  height="150"
+                  alt="Logo"
+                  class="imgCircle"
+                />
+              <% } else {%>
+                <img
+                  src="http://placehold.it/200x200"
+                  width="150"
+                  height="150"
+                  alt="Logo"
+                  class="imgCircle"
+                />
+              <% } %>
+              <h3 class="subTitle mb-1"><%= data.name %></h3>
+              <i class="fa fa-map-marker">
+                <span><%= data.city %>, <%= data.country %></span>
+              </i>
+              <br />
+              <i class="fa fa-building-o">
+                <span><%= data.sector %></span>
+              </i>
+              <br />
+              <i class="fa fa-external-link" >
+                <a href="http://<%= data.webiste %>" target="_blank">
+                  http://<%= data.website %>
+                </a>
+              </i>
+    
+              <h3 class="subTitle mb-1">Average Rating</h3>
+              <h5 class="star mb-0" data-score="<%= average %>"></h5>
+              <p class="subText">Based on <%= data.ratingNumber.length %> review(s)</p>
+    
+              <div class="groupBtn">
+                <a
+                  href="/review/<%= data._id %>"
+                  class="btn btn-block btn-success"
+                >
+                  Rate this company
+                </a>
+      
+                <a
+                  href="/<%= data.name %>/employees"
+                  class="btn btn-block btn-info"
+                >
+                  View Company Employees
+                </a>
+      
+                <% if(user.company.name != data.name) {%>
+                  <a
+                    href="/company/register-employee/<%= id %>"
+                    class="btn btn-block btn-primary"
+                  >
+                    Register me as an employee
+                  </a>
+                <% } else { %>
+                  <h2 class="subText text-center">You are an employee</h2>
+                <% }%>
+              </div>
+            </div>
+            <div class="col-md-1"></div>
           </div>
-          
-
         </div>
 
         <div class="col-md-9">
-          <div class="row">
-            <div class="col-md-4">
+          <div class="row borderGray bgWhite">
+            <div class="col-md-4 borderGrayRight">
               <div class="text-center">
                 <h1 class="title"><%= data.ratingNumber.length %></h1>
                 <h2 class="subTitle">Ratings (times)</h2>
@@ -81,7 +86,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 borderGrayRight">
               <div class="text-center">
                 <h1 class="title"><%= data.ratingSum %></h1>
                 <h2 class="subTitle">Total Stars</h2>
@@ -98,8 +103,8 @@
                 <h3 class="subText">Based on 5 reviews</h3>
               </div>
             </div>
-            <br /><br />
-
+          </div>
+          <div class="row">
             <div class="col-md-12 text-right mt-3 reviews">
               <h2 class="title">Reviews (<%= data.ratingNumber.length %>)</h2>
 
@@ -119,11 +124,18 @@
             <% data.companyRating.forEach(function(val){ %>
               <div class="row reviewItem">
                 <div class="reviewImage">
-                  <img
-                    src="/uploads/<%= val.companyImage %>"
-                    width="100px"
-                    height="100px"
-                  />
+                  <% if (val.companyImage) {%>
+                    <img
+                      src="/uploads/<%= val.companyImage %>"
+                    />
+                  <%} else {%>
+                    <img
+                      src="http://placehold.it/100x100"
+                      width="100px"
+                      height="100px"
+                      alt="Logo"
+                    />
+                  <%}%>
                 </div>
   
                 <div class="reviewInfo">

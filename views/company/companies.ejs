@@ -13,11 +13,19 @@
 
         <div class="col-md-4">
           <a href="/company-profile/<%= data[i]._id %>" class="companyItem">
-            <img
-              src="/uploads/<%= data[i].image %>"
-              class="companyImage"
-            />
-
+            <% if (data[i].image) {%>
+              <img
+                src="/uploads/<%= data[i].image %>"
+                class="companyImage"
+              />
+            <%} else {%>
+              <img
+                src="http://placehold.it/100x100"
+                width="100px"
+                height="100px"
+                alt="Logo"
+              />
+            <%}%>
             <div class="companyInfo">
               <h5 class=""><%= data[i].name %></h5>
               <span class="">

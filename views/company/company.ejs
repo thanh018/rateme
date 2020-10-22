@@ -6,13 +6,12 @@
 
     <div class="container">
       <div class="text-center">
-        <p class="title">Register Company</p>
+        <p class="mainTitle">Register Company</p>
       </div>
       <div class="row">
         <div class="col-md-4 offset-md-4">
-          <form method="POST" action="/company/create">
+          <form id="companyForm">
             <div class="form-group">
-              <span id="errorMsg1"></span>
               <input
                 id="name"
                 class="form-control"
@@ -23,7 +22,6 @@
             </div>
   
             <div class="form-group">
-              <span id="errorMsg2"></span>
               <input
                 id="address"
                 class="form-control"
@@ -34,7 +32,6 @@
             </div>
   
             <div class="form-group">
-              <span id="errorMsg3"></span>
               <input
                 id="city"
                 class="form-control"
@@ -45,7 +42,6 @@
             </div>
   
             <div class="form-group">
-              <span id="errorMsg4"></span>
               <input
                 id="country"
                 class="form-control"
@@ -56,7 +52,6 @@
             </div>
   
             <div class="form-group">
-              <span id="errorMsg5"></span>
               <input
                 id="sector"
                 class="form-control"
@@ -67,7 +62,6 @@
             </div>
   
             <div class="form-group">
-              <span id="errorMsg6"></span>
               <input
                 id="website"
                 class="form-control"
@@ -79,7 +73,7 @@
   
             <div class="form-group">
               <button
-                class="btn btn-block btnFile btn-default"
+                class="btn btn-block btnFile"
                 type="button"
                 data-toggle="modal"
                 data-target="#file"
@@ -109,9 +103,9 @@
                         </button>
                         <input
                           type="file"
-                          class="form-control"
-                          name="upload"
-                          id="upload-input"
+                          class="form-control upload-input"
+                          name="image"
+                          id="image"
                           style="display: none"
                         />
                       </div>
@@ -123,17 +117,16 @@
   
             <div class="form-group">
               <input
-                type="submit"
                 id="register"
                 value="Register"
                 class="form-control btn btn-primary"
                 name="register"
-                style=""
+                type="submit"
               />
             </div>
           </form>
         </div>
-        <div class="col-md-4 errors">
+        <div class="col-md-3 errors">
           <% if(noErrors) {%>
             <div class="alert alert-success">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">
@@ -142,10 +135,9 @@
               <%= success %>
             </div>
           <% } %>
+          <div id="errorsMessage"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<script src="/js/validate.js"></script>

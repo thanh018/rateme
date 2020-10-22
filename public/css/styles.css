@@ -127,6 +127,11 @@
     color: #73879C;
     font-size: 16px;
   }
+
+  .modalFile.modal {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
 /* end form */
 
 /* begin errors */

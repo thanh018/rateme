@@ -48,7 +48,6 @@ module.exports = (app) => {
 
     // call class Resize
     const fileUpload = new Resize(imagePath);
-    console.log("fileUpload", fileUpload)
 
     if (!req.file) {
       res.status(401).json({ error: 'Please provide an image'});

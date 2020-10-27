@@ -148,7 +148,7 @@
   .companyItem {
     display: flex;
     margin-bottom: 15px;
-    box-shadow: 1px 1px 3px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2);
   }
 
   .companyImage {
@@ -214,7 +214,7 @@
 
   .reviewItem {
     margin-bottom: 10px;
-    box-shadow: 1px 1px 3px -1px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2);
   }
 
   .reviewItem .subTitle {

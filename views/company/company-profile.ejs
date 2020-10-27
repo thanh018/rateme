@@ -124,9 +124,9 @@
             <% data.companyRating.forEach(function(val){ %>
               <div class="row reviewItem">
                 <div class="reviewImage">
-                  <% if (val.companyImage) {%>
+                  <% if (val.image) {%>
                     <img
-                      src="/uploads/<%= val.companyImage %>"
+                      src="/uploads/<%= val.image %>"
                     />
                   <%} else {%>
                     <img

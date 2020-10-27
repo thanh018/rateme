@@ -20,13 +20,16 @@ $(document).ready(function () {
 
     Object.keys(fields).forEach(key => {
       values[key] = $.trim($(`#${key}`).val());
+      if (key === 'image') {
+        values['image'] = $('#image').attr('src');
+      }
       if (!values[key]) {
         isValid = false;
         errors.push(key);
       }
     });
 
-    if (errors) {
+    if (errors.length > 0) {
       const errorsContent = `
         <div class="alert alert-danger">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">
@@ -40,7 +43,6 @@ $(document).ready(function () {
       $errorsMessage.html(errorsContent);
     } else $errorsMessage.html('');
 
-
     if (isValid) {
       $.ajax({
         url: '/company/create',
@@ -49,7 +51,11 @@ $(document).ready(function () {
         success: function () {
           Object.keys(fields).forEach(key => {
             $(`#${key}`).val('');
+            if (key === 'image') {
+              $('#image').attr('src', '');
+            }
           });
+          
           $errorsMessage.html('');
         },
       });

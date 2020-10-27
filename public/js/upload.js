@@ -9,12 +9,13 @@ $(document).ready(function () {
     $('.progress-bar').width('0%');
   });
 
-  $('.upload-input').on('change', function () {
+  $image.on('change', function () {
     if ($image.val()) {
       let formData = new FormData();
-
-      formData.append('upload', $image[0].files[0]);
-      console.log("formData", formData)
+      let files = $('#image')[0].files;
+      if (files.length) {
+        formData.append('image', files[0]);
+      }
 
       $.ajax({
         url: '/upload',
@@ -22,8 +23,11 @@ $(document).ready(function () {
         data: formData,
         processData: false,
         contentType: false,
-        success: function () {
-          // $image.val('');
+        success: function (data) {
+          const { name } = data;
+          if (name) {
+            $image.attr('src', name);
+          } 
         },
 
         xhr: function () {
@@ -31,7 +35,7 @@ $(document).ready(function () {
 
           xhr.upload.addEventListener('progress', function (e) {
             if (e.lengthComputable) {
-              var uploadPercent = e.loaded / e.total;
+              var uploadPercent = Math.floor(e.loaded / e.total);
               uploadPercent = (uploadPercent * 100);
 
               $('.progress-bar').text(uploadPercent + '%');

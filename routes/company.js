@@ -1,7 +1,10 @@
 var formidable = require('formidable');
 var path = require('path');
+var multer  =   require('multer');
 var fs = require('fs');
 var async = require('async');
+const upload = require('../config/uploadMiddleware');
+const Resize = require('../config/Resize');
 
 var Company = require('../models/company');
 var User = require('../models/user');
@@ -39,31 +42,19 @@ module.exports = (app) => {
     })
   });
 
-  app.post('/upload', (req, res) => {
-    var form = new formidable.IncomingForm();
+  app.post('/upload', upload.single('image') , async (req, res) => {
+    // folder upload
+    const imagePath = path.join(__dirname, '../public/uploads');
 
-    form.uploadDir = path.join(__dirname, '../public/uploads');
+    // call class Resize
+    const fileUpload = new Resize(imagePath);
+    console.log("fileUpload", fileUpload)
 
-    form.on('file', (field, file) => {
-      fs.rename(file.path, path.join(form.uploadDir, file.name), (err) => {
-        if (err) {
-          throw err
-        }
-
-        console.log('File has been renamed');
-      });
-    });
-
-    form.on('error', (err) => {
-      console.log('An error occured', err);
-    });
-
-    form.on('end', () => {
-      console.log('File upload was successful');
-    });
-
-    form.parse(req);
-
+    if (!req.file) {
+      res.status(401).json({ error: 'Please provide an image'});
+    }
+    const filename = await fileUpload.save(req.file.buffer);
+    return res.status(200).json({ name: filename });
   });
 
   app.get('/companies', (req, res) => {

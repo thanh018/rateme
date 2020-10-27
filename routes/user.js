@@ -13,9 +13,10 @@ module.exports = (app, passport) => {
     const user = get(req, 'user', {});
     if (!isEmpty(user)) res.redirect("/home");
     else
-      Company.find({}, (err, result) => {
-        res.render("index", { title: "Index", data: result });
-      });
+      // Company.find({}, (err, result) => {
+      //   res.render("index", { title: "Index", data: result });
+      // });
+      res.redirect("/signup");
   });
 
   app.get("/signup", (req, res) => {

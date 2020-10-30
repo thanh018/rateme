@@ -44,7 +44,7 @@ module.exports = (app) => {
           },
           (err) => {
             req.flash('success', 'Your review has been added.');
-            // res.redirect('/review/' + req.params.id);
+            res.redirect('/company-profile/' + req.params.id);
           },
         );
       },

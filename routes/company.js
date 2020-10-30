@@ -23,25 +23,32 @@ module.exports = (app) => {
   });
 
   app.post('/company/create', (req, res) => {
-    const newCompany = new Company();
-    newCompany.name = req.body.name;
-    newCompany.address = req.body.address;
-    newCompany.city = req.body.city;
-    newCompany.country = req.body.country;
-    newCompany.sector = req.body.sector;
-    newCompany.website = req.body.website;
-    newCompany.image = req.body.image;
-
-    newCompany.save((err) => {
-      if (err) {
-        console.log(err);
-      }
-
-      console.log(newCompany);
-
-      req.flash('success', 'Company data has been added.');
-      res.redirect('/company/create');
+    const { body } = req;
+    const {
+      name,
+      address,
+      city,
+      country,
+      sector,
+      website,
+      image
+    } = body;
+    const company = new Company({
+      name,
+      address,
+      city,
+      country,
+      sector,
+      website,
+      image
     });
+
+    company.save()
+      .then(() => {
+        req.flash('success', 'Company data has been added.');
+        res.redirect('/companies');
+      })
+      .catch(err => res.status(400).json(`Error: ${err}`));
   });
 
   app.post('/upload', upload.single('image'), async (req, res) => {

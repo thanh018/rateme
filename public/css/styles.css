@@ -8,6 +8,7 @@
     overscroll-behavior-y: none;
     min-height: calc(100% + 1px);
     color: #4a4a4a;
+    letter-spacing: 0.1px;
   }
 
   #wrapper {
@@ -45,9 +46,22 @@
     border-right: 1px solid #e6e2db;
   }
 
+  .borderGrayBottom {
+    border-bottom: 1px solid #e6e2db;
+  }
+
+  .radius-5 {
+    border-radius: 5px;
+  }
+
   .bgWhite {
     background-color: #fff;
     padding: 15px;
+  }
+
+  .image {
+    display: block;
+    margin: 0 auto;
   }
 
   .imgCircle {
@@ -68,47 +82,62 @@
 
   a {
     transition: all 0.3s ease-out;
-    color: #6487ad;
-    /* color: #ff410f; */
+    color: #f3714f;
   }
 
   .orange-color {
     color: #f3714f !important;
   }
 
+  .gray-color {
+    color: #73879C;
+  }
+
   a:hover,
   a:focus {
     text-decoration: none;
-    /* color: #f3714f; */
+    color: #f3714f;
   }
 
   .mainTitle {
-    margin-top: 50px;
-    margin-bottom: 30px;
-    font-size: 30px;
-    color: #333;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    font-size: 28px;
+    letter-spacing: 1px;
   }
 
   .title {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 20px;
+    font-size: 18px;
+    letter-spacing: 0.5px;
   }
 
   .subTitle {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 18px;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .text {
+    font-size: 14px;
     letter-spacing: 0.3px;
   }
 
   .subText {
-    font-size: 14px;
+    font-size: 12px;
     color: #73879C;
+    letter-spacing: 0.3px;
+  }
+  
+  .square {
+    width: 15px;
+    font-size: 14px;
   }
 
   .size-14 {
     font-size: 14px;
+  }
+
+  .font-bold {
+    font-weight: 700;
   }
 
   .navbar {
@@ -116,7 +145,12 @@
   }
 
   .navbar li a {
-    color: #4a4a4a;
+    color: #73879C;
+  }
+
+  .navbar li a.logout-link {
+    font-size: 24px;
+    padding: 0 10px;
   }
 
   .navbar li a:hover {
@@ -196,30 +230,18 @@
   .companyItem {
     display: flex;
     margin-bottom: 15px;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
 
   .companyImage {
-    width: 100px;
-    height: 100px;
+    border-radius: 5px 0 0 5px;
+    width: 110px;
+    height: 110px;
   }
 
   .companyInfo {
     padding: 5px 15px;
     color: #73879C;
-  }
-
-  .companyInfo h5 {
-    font-size: 14px;
-    margin-bottom: 0;
-  }
-
-  .companyInfo span {
-    font-size: 12px;
-  }
-
-  .companyInfo i {
-    font-size: 12px;
   }
 /* end company */
 
@@ -243,6 +265,7 @@
 
   .groups .subText {
     color: #73879C;
+    height: 40px;
   }
 
   .groups a {
@@ -255,42 +278,30 @@
 /* end homepage */
 
 /* Review */
-  .reviews .btn {
+  .btn-review.btn {
     min-width: 200px;
     font-size: 14px;
   }
 
+  .reviewList {
+    margin-top: 50px;
+  }
+
   .reviewItem {
-    margin-bottom: 10px;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 2px -2px rgba(0, 0, 0, 0.2);
   }
 
-  .reviewItem .subTitle {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 14px;
-  }
-  .reviewItem .subText,
-  .reviewItem .star{
-    margin-top: 5px;
-    margin-bottom: 0;
-    font-size: 14px;
-
+  .reviewItem:last-child {
+    box-shadow: none;
   }
 
   .reviewImage {
-    width: 100px;
+    width: 50px;
   }
 
   .reviewInfo {
-    width: calc(50% - 50px);
-    padding: 15px;
-  }
-
-  .reviewRating {
-    width: calc(50% - 50px);
-    padding: 15px;
-    border-left: 1px solid #ddd;
+    width: calc(100% - 50px);
+    padding: 0 10px;
   }
 
 /* end Review */
@@ -352,20 +363,35 @@
 }
 
 /* override button */
-.btn-primary:hover,
-.btn-primary:focus {
+.btn-orange:hover,
+.btn-secondary:hover,
+.btn-orange:focus,
+.btn-secondary:focus {
+  background-color: #f3714f !important;
+  border-color: #f3714f !important;
+  color: #fff !important;
+}
+.btn-orange {
   background-color: #f3714f !important;
   border-color: #f3714f !important;
 }
-.btn-primary {
-  background-color: #ff410f !important;
-  border-color: #ff410f !important;
-}
 
-.box-shadow {
+.shadow-medium {
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
+.shadow-light {
+  /* box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2); */
+}
+
+.shadow-light {
+  box-shadow: 0.5px 0.5px 2.5px 0.5px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  letter-spacing: 2.5px;
+  font-weight: 600;
+}
 
 
 

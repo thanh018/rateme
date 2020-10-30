@@ -12,30 +12,36 @@
         arrayAverage(data[i].ratingNumber) %>
 
         <div class="col-md-4">
-          <a href="/company-profile/<%= data[i]._id %>" class="companyItem">
+          <a href="/company-profile/<%= data[i]._id %>" class="companyItem shadow-light">
             <% if (data[i].image) {%>
               <img
                 src="/uploads/<%= data[i].image %>"
                 class="companyImage"
+                width="110px"
+                width="110px"
               />
             <%} else {%>
               <img
-                src="http://placehold.it/100x100"
-                width="100px"
-                height="100px"
+                src="http://placehold.it/110x110"
+                width="110px"
+                height="110px"
                 alt="Logo"
+                class="companyImage"
               />
             <%}%>
             <div class="companyInfo">
-              <h5 class=""><%= data[i].name %></h5>
+              <h5 class="text my-1"><%= data[i].name %></h5>
+              
+              <i class="fa fa-building-o square"></i>
+              <span class="subText"><%= data[i].sector %></span>
+              <br />
+              <i class="fa fa-map-marker square"></i>
+              <span class="subText"><%= data[i].city %>, <%= data[i].country %></span>
+              <br />
               <span class="">
                 <i class="star" data-score="<%= total %>"></i>
-                (<%= data[i].ratingNumber.length %>) </span
-              ><br />
-              <i class="fa fa-building-o"> <%= data[i].sector %></i><br />
-              <i class="fa fa-map-marker">
-                <%= data[i].city %>, <%= data[i].country %></i
-              >
+                (<%= data[i].ratingNumber.length %>) 
+              </span>
             </div>
           </a>
         </div>

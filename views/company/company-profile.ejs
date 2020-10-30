@@ -4,11 +4,11 @@
   <div id="page-content-wrapper">
     <% include ../partials/navbar %>
     <div class="container">
-      <h4 class="mainTitle">Company Profile</h4>
+      <h4 class="mainTitle text-center">Company Profile</h4>
       <div class="row">
         <div class="col-md-3">
           <div class="row">
-            <div class="col-md-11 companyProfile borderGray bgWhite text-center">
+            <div class="col-md-11 companyProfile shadow-light radius-5 bgWhite text-left">
               <%if (data.image.length > 0) { %>
                 <img
                   src="/uploads/<%= data.image %>"
@@ -26,50 +26,53 @@
                   class="imgCircle"
                 />
               <% } %>
-              <h3 class="subTitle mb-1"><%= data.name %></h3>
-              <i class="fa fa-map-marker">
-                <span><%= data.city %>, <%= data.country %></span>
-              </i>
+              <h3 class="text text-center mt-3"><%= data.name %></h3>
+              <div class="borderGrayBottom my-3"></div>
+              <i class="fa fa-map-marker square"></i>
+              <span class="subText"><%= data.city %>, <%= data.country %></span>
               <br />
-              <i class="fa fa-building-o">
-                <span><%= data.sector %></span>
-              </i>
+              <i class="fa fa-building-o square"></i>
+              <span class="subText"><%= data.sector %></span>
               <br />
-              <i class="fa fa-external-link" >
-                <a href="http://<%= data.webiste %>" target="_blank">
-                  http://<%= data.website %>
-                </a>
-              </i>
-    
-              <h3 class="subTitle mb-1">Average Rating</h3>
+              <i class="fa fa-external-link square" ></i>
+              <a class="subText orange-color" href="http://<%= data.webiste %>" value="http://<%= data.webiste %>"target="_blank">
+                http://<%= data.website %>
+              </a>
+              <div class="borderGrayBottom my-3"></div>
+              <h3 class="text mb-1">Average rating</h3>
+              <%if (data.ratingNumber.length > 1) {%>
+                <p class="subText mb-0">Based on <%= data.ratingNumber.length %> reviews</p>
+              <%} else {%>
+                <p class="subText mb-0">Based on <%= data.ratingNumber.length %> review</p>
+              <% } %>
               <h5 class="star mb-0" data-score="<%= average %>"></h5>
-              <p class="subText">Based on <%= data.ratingNumber.length %> review(s)</p>
     
+              <div class="borderGrayBottom my-3"></div>
+
               <div class="groupBtn">
+                <% if(user.company.name != data.name) {%>
+                  <a
+                    href="/company/register-employee/<%= id %>"
+                    class="btn btn-block btn-secondary"
+                  >
+                    Register me as an employee
+                  </a>
+                <% } else { %>
+                  <h2 class="text text-center orange-color mb-3">You are an employee</h2>
+                <% }%>
                 <a
                   href="/review/<%= data._id %>"
-                  class="btn btn-block btn-success"
+                  class="btn btn-block btn-secondary"
                 >
                   Rate this company
                 </a>
       
                 <a
                   href="/<%= data.name %>/employees"
-                  class="btn btn-block btn-info"
+                  class="btn btn-block btn-secondary"
                 >
                   View Company Employees
                 </a>
-      
-                <% if(user.company.name != data.name) {%>
-                  <a
-                    href="/company/register-employee/<%= id %>"
-                    class="btn btn-block btn-primary"
-                  >
-                    Register me as an employee
-                  </a>
-                <% } else { %>
-                  <h2 class="subText text-center">You are an employee</h2>
-                <% }%>
               </div>
             </div>
             <div class="col-md-1"></div>
@@ -77,93 +80,89 @@
         </div>
 
         <div class="col-md-9">
-          <div class="row borderGray bgWhite">
+          <div class="row shadow-light radius-5 bgWhite">
             <div class="col-md-4 borderGrayRight">
               <div class="text-center">
-                <h1 class="title"><%= data.ratingNumber.length %></h1>
-                <h2 class="subTitle">Ratings (times)</h2>
+                <h1 class="subTitle"><%= data.ratingNumber.length %></h1>
+                <h2 class="text">Ratings (times)</h2>
                 <h3 class="subText">Total ratings received</h3>
               </div>
             </div>
 
             <div class="col-md-4 borderGrayRight">
               <div class="text-center">
-                <h1 class="title"><%= data.ratingSum %></h1>
-                <h2 class="subTitle">Total Stars</h2>
+                <h1 class="subTitle"><%= data.ratingSum %></h1>
+                <h2 class="text">Total Stars</h2>
                 <h3 class="subText">Total stars received</h3>
               </div>
             </div>
 
             <div class="col-md-4">
               <div class="text-center">
-                <h1 class="title">
+                <h1 class="subTitle">
                   <span class="star" data-score="<%= average %>"></span>
                 </h1>
-                <h2 class="subTitle">Average Rating (<%= average %>)</h2>
+                <h2 class="text">Average Rating (<%= average %>)</h2>
                 <h3 class="subText">Based on 5 reviews</h3>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12 text-right mt-3 reviews">
-              <h2 class="title">Reviews (<%= data.ratingNumber.length %>)</h2>
-
-              <div class="">
-                <a href="/review/<%= id %>" class="btn btn-success"> Write Review</a>
-              </div>
-
-            </div>
-            
+          <div class="row mt-3 justify-content-end">
+            <a href="/review/<%= id %>" class="btn btn-secondary btn-review"> Write Review</a>
+          </div>
+          <div class="reviewList">
+            <h2 class="row subTitle mb-3">Reviews (<%= data.ratingNumber.length %>)</h2>
+            <% if(data.companyRating.length > 0) {%> 
+              <% data.companyRating.forEach(function(val){ %>
+                <div class="row reviewItem mb-3 pb-3">
+                  <div class="reviewImage">
+                    <% if (val.companyImage.length > 0) {%>
+                      <img
+                        src="/uploads/<%= val.companyImage %>"
+                        width="40px"
+                        height="40px"
+                        alt="Logo"
+                        class="imgCircle"
+                      />
+                    <%} else {%>
+                      <img
+                        src="http://placehold.it/50x50"
+                        width="40px"
+                        height="40px"
+                        alt="Logo"
+                        class="imgCircle"
+                      />
+                    <%}%>
+                  </div>
+    
+                  <div class="reviewInfo">
+                    <span class="mb-1">
+                      <a class="orange-color text-capitalize text" href="#"><%= val.userFullname %></a> 
+                      <% if (val.userRole) { %>
+                        <span class="subText gray-color text-capitalize">| <%=val.userRole %></span>
+                      <% } %>
+  
+                      <% if (val.companyName) { %>
+                        <span class="subText text-capitalize mb-1">| <%= val.companyName %></span>
+                      <% } %>
+                      
+                    </span>
+                    
+                    <p class="subText mb-0"><%= val.userReview %></p>
+                    <span
+                      class="star"
+                      data-score="<%= val.userRating %>"
+                    ></span>
+                  </div>
+                </div>
+              <% })%>
+            <% }%>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-9 reviewList">
-          <% if(data.companyRating.length > 0) {%> 
-            <% data.companyRating.forEach(function(val){ %>
-              <div class="row reviewItem">
-                <div class="reviewImage">
-                  <% if (val.companyImage.length > 0) {%>
-                    <img
-                      src="/uploads/<%= val.companyImage %>"
-                      width="100px"
-                      height="100px"
-                      alt="Logo"
-                    />
-                  <%} else {%>
-                    <img
-                      src="http://placehold.it/100x100"
-                      width="100px"
-                      height="100px"
-                      alt="Logo"
-                    />
-                  <%}%>
-                </div>
-  
-                <div class="reviewInfo">
-                  <h1 class="subTitle">
-                    <a class="orange-color text-capitalize" href="#"><%= val.userFullname %></a> 
-                    <% if (val.userRole) { %>
-                      <span class="subTitle text-capitalize">| <%=val.userRole %></span>
-                    <% } %>
-                    
-                  </h1>
-                  <h2 class="subText text-capitalize"><%= val.companyName %></h2>
-                  <p class="subText"><%= val.userReview %></p>
-                </div>
-  
-                <div class="reviewRating">
-                  <h1 class="subTitle">Rating</h1>
-                  <span
-                    class="star"
-                    data-score="<%= val.userRating %>"
-                  ></span>
-                </div>
-              </div>
-            <% })%>
-          <% }%>
-        </div>
+        
       </div>
     </div>
   </div>

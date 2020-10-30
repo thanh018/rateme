@@ -17,17 +17,19 @@
               type="hidden"
             />
             <div class="form-group">
+              <label class="orange-color">From Company (Reviewer's company)</label>
               <input
                 id="sender"
                 class="form-control"
                 name="sender"
                 value="<%= user.company.name %>"
                 type="text"
-                placeholder="Sending Company"
+                placeholder="You have not registered any company"
               />
             </div>
   
             <div class="form-group">
+              <label class="orange-color">Receiving Company</label>
               <input
                 id="receiver"
                 class="form-control"
@@ -35,6 +37,7 @@
                 value="<%= data.name %>"
                 type="text"
                 placeholder="Receiving Company"
+                disabled
               />
             </div>
   
@@ -76,9 +79,9 @@
                 id="review"
                 rows="8"
                 cols="80"
-                class="form-control"
+                class="form-control subText"
                 placeholder="Review"
-              ></textarea>
+              >This company is okay for now.</textarea>
             </div>
   
             <div class="form-group">

@@ -9,7 +9,7 @@ const Resize = require('../config/Resize');
 var Company = require('../models/company');
 var User = require('../models/user');
 
-var { arrayAverage } = require('../myFunctions');
+var { arrayAverage } = require('../utils/utils');
 
 module.exports = (app) => {
   app.get('/company/create', (req, res) => {
@@ -95,10 +95,11 @@ module.exports = (app) => {
   app.post('/company/register-employee/:id', (req, res, next) => {
     async.parallel([
       function (callback) {
+        // update employee for company
         Company.update(
           {
             _id: req.params.id,
-            'employees.employeeId': { $ne: req.user._id },
+            'employees.employeeId': { $ne: req.user._id }, // find a company that user has not registered yet
           },
           {
             $push: {
@@ -119,6 +120,7 @@ module.exports = (app) => {
       },
 
       function (callback) {
+        // update company (name and image) for user
         async.waterfall([
           function (callback) {
             Company.findOne({ _id: req.params.id }, (err, data) => {
@@ -132,7 +134,7 @@ module.exports = (app) => {
               result.company.name = data.name;
               result.company.image = data.image;
 
-              result.save((err) => {
+              result.save(() => {
                 res.redirect('/home');
               });
             });
@@ -155,7 +157,7 @@ module.exports = (app) => {
   app.get('/companies/leaderboard', (req, res) => {
     Company.find({}, (err, result) => {
       res.render('company/leaderboard', {
-        title: 'Companies Leadebaord || RateMe',
+        title: 'Companies Leadebaord',
         user: req.user,
         data: result,
       });

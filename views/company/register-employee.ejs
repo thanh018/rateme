@@ -9,8 +9,16 @@
       <div class="row">
         <div class="col-md-6 offset-md-3">
           <div class="form-group">
-            <span for="">Company</span>
-            <span class="subText"><%= data.name %></span>
+            <span for="">Employee's name:</span>
+            <span class="subText ml-1 text-capitalize orange-color"><%= user.fullname %></span>
+          </div>
+          <div class="form-group">
+            <span for="">Employee's email:</span>
+            <span class="subText ml-1 orange-color"><%= user.email %></span>
+          </div>
+          <div class="form-group">
+            <span for="">Company that employee will register:</span>
+            <span class="subText ml-1 text-capitalize orange-color"><%= data.name %></span>
           </div>
   
           <form action="" method="post">
@@ -20,7 +28,7 @@
                 class="form-control"
                 name="role"
                 type="text"
-                placeholder="Role"
+                placeholder="Employee's role"
               />
             </div>
   

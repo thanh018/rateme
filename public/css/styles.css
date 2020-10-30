@@ -148,6 +148,10 @@
     color: #73879C;
   }
 
+  .navbar li .nav-link {
+    padding: 10px 1rem;
+  }
+
   .navbar li a.logout-link {
     font-size: 24px;
     padding: 0 10px;
@@ -278,9 +282,18 @@
 /* end homepage */
 
 /* Review */
-  .btn-review.btn {
+  .btn-review.btn,
+  .btn-custom.btn {
     min-width: 200px;
     font-size: 14px;
+  }
+
+  .min-150 {
+    min-width: 150px;
+  }
+
+  .min-100 {
+    min-width: 100px;
   }
 
   .reviewList {
@@ -374,6 +387,7 @@
 .btn-orange {
   background-color: #f3714f !important;
   border-color: #f3714f !important;
+  color: #fff !important;
 }
 
 .shadow-medium {

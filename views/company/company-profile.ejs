@@ -34,16 +34,22 @@
               <% } %>
               <h3 class="text text-center mt-3"><%= data.name %></h3>
               <div class="borderGrayBottom my-3"></div>
-              <i class="fa fa-map-marker square"></i>
-              <span class="subText"><%= data.city %>, <%= data.country %></span>
-              <br />
-              <i class="fa fa-building-o square"></i>
-              <span class="subText"><%= data.sector %></span>
-              <br />
-              <i class="fa fa-external-link square" ></i>
-              <a class="subText orange-color" href="http://<%= data.webiste %>" value="http://<%= data.webiste %>"target="_blank">
-                http://<%= data.website %>
-              </a>
+              
+
+              <% if (data.address) {%>
+                <i class="fa fa-map-marker square"></i>
+                <span class="subText"><%= data.address %></span>
+                <br />
+              <%}%>
+              
+
+              <% if (data.website) {%>
+                <i class="fa fa-external-link square" ></i>
+                <a class="subText colorMain" href="http://<%= data.webiste %>" value="http://<%= data.webiste %>"target="_blank">
+                  http://<%= data.website %>
+                </a>
+                <br />
+              <%}%>
               <div class="borderGrayBottom my-3"></div>
               <h3 class="text mb-1">Average rating</h3>
               <%if (data.ratingNumber.length > 1) {%>
@@ -64,7 +70,7 @@
                     Register me as an employee
                   </a>
                 <% } else { %>
-                  <h2 class="text text-center orange-color mb-3">You are an employee</h2>
+                  <h2 class="text text-center colorMain mb-3">You are an employee</h2>
                 <% }%>
                 <a
                   href="/review/<%= data._id %>"
@@ -143,9 +149,9 @@
     
                   <div class="reviewInfo">
                     <span class="mb-1">
-                      <a class="orange-color text-capitalize text" href="#"><%= val.userFullname %></a> 
+                      <a class="colorMain text-capitalize text" href="#"><%= val.userFullname %></a> 
                       <% if (val.userRole) { %>
-                        <span class="subText gray-color text-capitalize">| <%=val.userRole %></span>
+                        <span class="subText colorGray text-capitalize">| <%=val.userRole %></span>
                       <% } %>
   
                       <% if (val.companyName) { %>

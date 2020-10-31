@@ -1,69 +1,77 @@
 $(document).ready(function () {
   
   let $form = $('#companyForm');
-  let $errorsMessage = $('#errorsMessage');
   let $loading = $('.create-company .loading');
-  let $alertSuccess = $('.create-company .alert-success');
+  let $successMessage = $('.create-company #success-message');
+  let $register = $('.create-company #register');
+  let $input = $('.create-company .input');
+
+  let errors = {
+    name: 'default',
+    address: 'default',
+    image: 'default',
+  };
+
+  let fields = {
+    name: '',
+    address: '',
+    image: ''
+  };
+
+  $input.on('change paste keyup', function() {
+    const value = $.trim($(this).val());
+    const id = $(this).prop('id');
+    const $dangersMessage = $(`#${id}-error`);
+    errors[id] = value;
+    
+    value ? $dangersMessage.addClass('d-none') : $dangersMessage.removeClass('d-none');
+
+    const disabled = Object.keys(errors).some(key => !errors[key]);
+    $register.prop('disabled', disabled);
+  });
+
+
 
   $form.on('submit', function (e) {
     e.preventDefault();
-    let fields = {
-      name: '',
-      address: '',
-      city: '',
-      country: '',
-      sector: '',
-      website: '',
-      image: ''
-    };
-    let values = {};
-    let errors = [];
+    let dataForm = {};
     let isValid = true;
 
     Object.keys(fields).forEach(key => {
-      values[key] = $.trim($(`#${key}`).val());
+      const value = $.trim($(`#${key}`).val());
+      const $dangersMessage = $(`#${key}-error`);
+      dataForm[key] = value;
+      errors[key] = value;
+
       if (key === 'image') {
-        values['image'] = $('#image').attr('src');
+        const src = $('#image').attr('src')
+        dataForm[key] = src;
+        errors[key] = src;
       }
-      if (!values[key]) {
+
+
+      dataForm[key] ? $dangersMessage.addClass('d-none') : $dangersMessage.removeClass('d-none');
+
+      if (!dataForm[key]) {
         isValid = false;
-        errors.push(key);
+        $register.prop('disabled', true);
       }
     });
-
-    if (errors.length > 0) {
-      const errorsContent = `
-        <div class="alert alert-danger">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">
-            &times;
-          </a>
-          ${errors.map(field => 
-            `<div class="mb-2 mt-2"><span class="text-capitalize">${field}</span> field is empty</div>`).join('')
-          }
-        </div>
-      `;
-      $errorsMessage.html(errorsContent);
-    } else $errorsMessage.html('');
-
-    if (!isValid) {
-    }
 
     if (isValid) {
       $loading.removeClass('d-none');
       $.ajax({
         url: '/company/create',
         type: 'POST',
-        data: values,
+        data: dataForm,
         success: function (data) {
-          $alertSuccess.removeClass('d-none');
+          $successMessage.removeClass('d-none');
           Object.keys(fields).forEach(key => {
             $(`#${key}`).val('');
             if (key === 'image') {
               $('#image').attr('src', '');
             }
           });
-          
-          $errorsMessage.html('');
           if (data) {
             setTimeout(() => {
               window.location.href = 'http://localhost:3000/companies';

@@ -1,14 +1,14 @@
 <nav class="navbar navbar-dark">
-  <div class="container navbar-inner d-flex justify-content-between">
+  <div class="container navbar-inner px-0 d-flex justify-content-between">
     <ul class="d-flex">
-      <a class="navbar-brand orange-color logo" href="/home">RateMe</a>
+      <a class="navbar-brand colorMain logo" href="/home">RATEME</a>
       <li><a class="nav-link" href="/companies">Companies</a></li>
       <li><a class="nav-link" href="/company/search">Company Search</a></li>
       <li><a class="nav-link" href="/companies/leaderboard">Leaderboard</a></li>
     </ul>
-    <ul class="d-flex">
-      <li><a class="nav-link text-capitalize font-bold" href="/home"><%= user.fullname %></a></li>
-      <li><a class="nav-link logout-link" href="/logout">
+    <ul class="d-flex align-items-center">
+      <li><a class="nav-link font-bold shadow-light colorGray radius-5" href="/home"><%= user.fullname %></a></li>
+      <li><a class="nav-link logout-link py-0 px-0 ml-4" href="/logout">
       
         <i class="fa fa-sign-out"></i>
       </a></li>

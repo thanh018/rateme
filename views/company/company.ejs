@@ -8,7 +8,7 @@
       <div class="text-center">
         <p class="mainTitle mt-4 mb-0">Register Company</p>
       </div>
-      <div class="row mb-3 justify-content-end">
+      <div class="row mb-3 mr-0 justify-content-end">
         <a href="/companies" class="btn btn-secondary size-14 min-120 text-center">
           <span>Companies</span>
           <i class="fa fa-arrow-right square ml-1"></i>
@@ -18,26 +18,29 @@
         <div class="col-md-4 offset-md-4 relative">
           <form
             id="companyForm"
-            class="relative"
             action="/company/create"
             enctype="multipart/form-data"
             method="POST"
           >
             <div class="form-group">
               <div
-                class="logo-company centered mb-3"
+                class="logo-company centered mb-3 relative input"
                 data-toggle="modal"
                 data-target="#file"
               >
                 <img
-                  src="http://placehold.it/200x200"
+                  src="/images/logo-default.png"
                   width="200"
                   height="200"
                   alt="Logo"
-                  class="imgCircle logo-image"
+                  class="imgCircle logo-image pointer"
                 />
+                <div class="loading absolute middle text-center d-none">
+                  <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
+                </div>
               </div>
-              <p id="completed" class="text-center text my-2 py-1 green-color bgGreen d-none">Logo had already been uploaded</p>
+              <p id="completed" class="text-center text my-2 py-1 colorGreen bgGreen d-none">Logo has uploaded successfully</p>
+              <p id="image-error" class="text-center text my-t py-1 colorRed bgRed d-none">Logo is required</p>
   
               <div id="file" class="modal modalUpload absolute middle align-items-center" tabindex="-1" role="dialog">
                 <div class="modal-dialog my-0 width-100" role="document">
@@ -55,12 +58,12 @@
                           <div class="progress-bar" role="progressbar">0%</div>
                         </div>
   
-                        <button class="btn btn-block mt-3 upload-btn gray-color" type="button">
+                        <button class="btn btn-block mt-3 upload-btn colorGray" type="button">
                           Upload
                         </button>
                         <input
                           type="file"
-                          class="form-control upload-input"
+                          class="form-control upload-input input"
                           name="image"
                           id="image"
                           style="display: none"
@@ -74,57 +77,61 @@
             <div class="form-group">
               <input
                 id="name"
-                class="form-control"
+                class="form-control input"
                 name="name"
                 type="text"
-                placeholder="Company Name"
+                placeholder="Company name"
               />
+              <p id="name-error" class="text-center text mt-2 py-1 colorRed bgRed d-none">Name is required</p>
+
             </div>
   
             <div class="form-group">
               <input
                 id="address"
-                class="form-control"
+                class="form-control input"
                 name="address"
                 type="text"
                 placeholder="Address"
               />
+              <p id="address-error" class="text-center text mt-2 py-1 colorRed bgRed d-none">Address is required</p>
+
             </div>
   
-            <div class="form-group">
+            <div class="form-group d-none">
               <input
                 id="city"
-                class="form-control"
+                class="form-control input"
                 name="city"
                 type="text"
                 placeholder="City"
               />
             </div>
   
-            <div class="form-group">
+            <div class="form-group d-none">
               <input
                 id="country"
-                class="form-control"
+                class="form-control input"
                 name="country"
                 type="text"
                 placeholder="Country"
               />
             </div>
   
-            <div class="form-group">
+            <div class="form-group d-none">
               <input
                 id="sector"
-                class="form-control"
+                class="form-control input"
                 name="sector"
                 type="text"
                 placeholder="Sector"
               />
             </div>
   
-            <div class="form-group">
+            <div class="form-group d-none">
               <input
                 id="website"
-                class="form-control"
+                class="form-control input"
                 name="website"
                 type="text"
                 placeholder="Website"
@@ -141,18 +148,12 @@
               />
             </div>
           </form>
-          <div class="loading absolute middle half text-center d-none">
-            <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
-          </div>
         </div>
-        <div class="col-md-3 errors">
-          <div class="alert alert-success d-none">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">
-              &times;
-            </a>
-            <span>Company data has been added.</span>
-          </div>
-          <div id="errorsMessage"></div>
+        <div class="col-md-4 errors">
+          <p id="success-message" class="text-center text my-2 py-2 colorGreen bgGreen d-none">
+            <i class="fa fa-check-circle square mr-1"></i>
+            <span>Company was created successfully</span>
+          </p>
         </div>
       </div>
     </div>

@@ -11,9 +11,13 @@
     letter-spacing: 0.1px;
   }
 
+  .pointer {
+    cursor: pointer;
+  }
+
   #wrapper {
     position: relative;
-    max-width: 1440px;
+    max-width: 1140px;
     margin: 0 auto;
     height: 100%;
   }
@@ -22,10 +26,9 @@
     position: relative;
     overflow: hidden;
     color: #4a4a4a;
-    padding-bottom: 50%;
-    min-height: 100%;
     background-color: #fff;
-    max-width: 1440px;
+    max-width: 1140px;
+    min-height: 100vh;
   }
 
   .height-100vh {
@@ -42,7 +45,7 @@
   }
 
   .container {
-    max-width: 1230px;
+    max-width: 1100px;
   }
 
   .navbar-inner {
@@ -98,11 +101,23 @@
     color: #ff410f;
   }
 
-  .orange-color {
+  .colorMain {
     color: #ff410f !important;
   }
 
-  .gray-color {
+  .colorRed {
+    color: #721c24;
+  }
+
+  .bgRed {
+    background-color: #f8d7da;
+  }
+
+  .borderRed {
+    border: 1px solid #f5c6cb;
+  }
+
+  .colorGray {
     color: #73879C;
   }
 
@@ -110,7 +125,7 @@
     background-color: #73879C;
   }
 
-  .green-color {
+  .colorGreen {
     color: #155724;
   }
 
@@ -125,9 +140,8 @@
   }
 
   .mainTitle {
-    font-size: 28px;
+    font-size: 24px;
     letter-spacing: 1px;
-    text-transform: uppercase;
   }
 
   .title {
@@ -174,11 +188,11 @@
 
   .navbar li .nav-link {
     padding: 10px 1rem;
+    text-transform: uppercase;
   }
 
   .navbar li a.logout-link {
-    font-size: 24px;
-    padding: 0 10px;
+    font-size: 24px;;
   }
 
   .navbar li a:hover {
@@ -289,13 +303,13 @@
 
   .companyImage {
     border-radius: 5px 0 0 5px;
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
   }
 
   .companyInfo {
     padding: 5px 15px;
-    color: #73879C;
+    color: #4a4a4a;
   }
 /* end company */
 
@@ -321,13 +335,17 @@
     color: #73879C;
   }
 
+  .groupItem {
+    max-width: 280px;
+  }
+
   .groups .subText {
     color: #73879C;
     height: 40px;
   }
 
   .groups a {
-    width: 50%;
+    width: 160px;
   }
 
   .homepage .groups {
@@ -487,6 +505,14 @@
 
 .centered {
   margin: 0 auto;
+}
+
+.btn.disabled, 
+.btn:disabled {
+  color: #fff !important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  cursor: not-allowed;
 }
 
 

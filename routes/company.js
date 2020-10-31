@@ -27,19 +27,19 @@ module.exports = (app) => {
     const {
       name,
       address,
-      city,
-      country,
-      sector,
-      website,
+      // city,
+      // country,
+      // sector,
+      // website,
       image
     } = body;
     const company = new Company({
       name,
       address,
-      city,
-      country,
-      sector,
-      website,
+      // city,
+      // country,
+      // sector,
+      // website,
       image
     });
 

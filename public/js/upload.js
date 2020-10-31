@@ -5,7 +5,7 @@ $(document).ready(function () {
   const $logo = $('.logo-image');
   const $modalUpload = $('.modalUpload');
   const $progressBar = $('.progress-bar');
-  const $completd = $('#completed');
+  const $completed = $('#completed');
   $uploadBtn.on('click', function () {
     $image .click();
     $progressBar.text('0%');
@@ -46,7 +46,8 @@ $(document).ready(function () {
               $progressBar.width(uploadPercent + '%');
               if (uploadPercent === 100) {
                 $progressBar.text('Done');
-                $completd.removeClass('d-none');  
+                $completed.removeClass('d-none');
+                $('#image-error').addClass('d-none');
               }
 
               setTimeout(() => {

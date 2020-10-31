@@ -2,6 +2,8 @@ $(document).ready(function () {
   
   let $form = $('#companyForm');
   let $errorsMessage = $('#errorsMessage');
+  let $loading = $('.create-company .loading');
+  let $alertSuccess = $('.create-company .alert-success');
 
   $form.on('submit', function (e) {
     e.preventDefault();
@@ -43,12 +45,17 @@ $(document).ready(function () {
       $errorsMessage.html(errorsContent);
     } else $errorsMessage.html('');
 
+    if (!isValid) {
+    }
+
     if (isValid) {
+      $loading.removeClass('d-none');
       $.ajax({
         url: '/company/create',
         type: 'POST',
         data: values,
-        success: function () {
+        success: function (data) {
+          $alertSuccess.removeClass('d-none');
           Object.keys(fields).forEach(key => {
             $(`#${key}`).val('');
             if (key === 'image') {
@@ -57,6 +64,11 @@ $(document).ready(function () {
           });
           
           $errorsMessage.html('');
+          if (data) {
+            setTimeout(() => {
+              window.location.href = 'http://localhost:3000/companies';
+            }, 1500);
+          }
         },
       });
     } else return false;

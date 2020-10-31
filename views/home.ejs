@@ -1,52 +1,53 @@
 <% layout('layout2') %>
 
 <div id="wrapper">
-  <div id="page-content-wrapper">
+  <div id="page-content-wrapper" class="py-0 height-100vh">
     <% include partials/navbar %>
-
-    <div class="container homepage">
-      <div class="text-center">
-        <h1 class="mainTitle text-capitalize mb-3">Hello, <%= user.fullname %></h1>
-        <p class="title">What would you like to do today?</p>
-      </div>
-
-      <div class="row text-center groups">
-        <div class="col-md-4">
-          <div class="iconItem"><i class="fa fa-plus orange-color"></i></div>
-          <h3 class="subTitle">Add Company</h3>
-          <p class="text gray-color">
-            Add company profile. Registered employees can give ratings and
-            reviews.
-          </p>
-
-          <a href="/company/create" class="btn btn-secondary"
-            >Add</a
-          >
+    <div class="container">
+      <div class="homepage">
+        <div class="text-center">
+          <h1 class="mainTitle text-capitalize my-3">Hello, <%= user.fullname %></h1>
+          <p class="title">What would you like to do today?</p>
         </div>
 
-        <div class="col-md-4">
-          <div class="iconItem"><i class="fa fa-search orange-color"></i></div>
-          <h3 class="subTitle">Search</h3>
-          <p class="text gray-color">
-            Search through our business catalogue and find your best partner.
-          </p>
+        <div class="row text-center groups">
+          <div class="col-md-4">
+            <div class="iconItem"><i class="fa fa-plus orange-color"></i></div>
+            <h3 class="subTitle">Add Company</h3>
+            <p class="text gray-color">
+              Add company profile. Registered employees can give ratings and
+              reviews.
+            </p>
 
-          <a href="/company/search" class="btn btn-secondary"
-            >Search</a
-          >
-        </div>
+            <a href="/company/create" class="btn btn-secondary"
+              >Add</a
+            >
+          </div>
 
-        <div class="col-md-4">
-          <div class="iconItem"><i class="fa fa-star orange-color"></i></div>
-          <h3 class="subTitle">Rate</h3>
-          <p class="text gray-color">
-            Rate and review other companies and get your company reviewed as
-            well.
-          </p>
+          <div class="col-md-4">
+            <div class="iconItem"><i class="fa fa-search orange-color"></i></div>
+            <h3 class="subTitle">Search</h3>
+            <p class="text gray-color">
+              Search through our business catalogue and find your best partner.
+            </p>
 
-          <a href="/companies" class="btn btn-secondary"
-            >Rate</a
-          >
+            <a href="/company/search" class="btn btn-secondary"
+              >Search</a
+            >
+          </div>
+
+          <div class="col-md-4">
+            <div class="iconItem"><i class="fa fa-star orange-color"></i></div>
+            <h3 class="subTitle">Rate</h3>
+            <p class="text gray-color">
+              Rate and review other companies and get your company reviewed as
+              well.
+            </p>
+
+            <a href="/companies" class="btn btn-secondary"
+              >Rate</a
+            >
+          </div>
         </div>
       </div>
     </div>

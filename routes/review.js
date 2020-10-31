@@ -40,7 +40,8 @@ module.exports = (app) => {
               },
               ratingNumber: req.body.clickedValue,
             },
-            $inc: { ratingSum: req.body.clickedValue },
+            $inc: { ratingSum: req.body.clickedValue }, // The $inc operator increments a field by a specified value
+            // ratingSum = ratingSum + req.body.clickedValue
           },
           (err) => {
             req.flash('success', 'Your review has been added.');

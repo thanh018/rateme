@@ -28,6 +28,19 @@
     max-width: 1440px;
   }
 
+  .height-100vh {
+    height: 100vh;
+  }
+
+  .height-content-100vh {
+    height: calc(100vh - 60px);
+  }
+
+  .my-20 {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+
   .container {
     max-width: 1230px;
   }
@@ -82,28 +95,39 @@
 
   a {
     transition: all 0.3s ease-out;
-    color: #f3714f;
+    color: #ff410f;
   }
 
   .orange-color {
-    color: #f3714f !important;
+    color: #ff410f !important;
   }
 
   .gray-color {
     color: #73879C;
   }
 
+  .bgGray {
+    background-color: #73879C;
+  }
+
+  .green-color {
+    color: #155724;
+  }
+
+  .bgGreen {
+    background-color: #d4edda;
+  }
+
   a:hover,
   a:focus {
     text-decoration: none;
-    color: #f3714f;
+    color: #ff410f;
   }
 
   .mainTitle {
-    margin-top: 100px;
-    margin-bottom: 50px;
     font-size: 28px;
     letter-spacing: 1px;
+    text-transform: uppercase;
   }
 
   .title {
@@ -158,7 +182,7 @@
   }
 
   .navbar li a:hover {
-    color: #f3714f;
+    color: #ff410f;
   }
 
 /* end common */
@@ -197,26 +221,52 @@
     margin-bottom: 5px;
   }
 
-  .btnFile {
-    font-size: 14px;
+  .logo-company {
+    width: 200px;
+    height: 200px;
   }
 
-  .modalFile .progress {
+  .radius-50 {
+    border-radius: 50%;
+  }
+
+  .modalUpload {
+    width: 100%;
+    height: 50%;
+  }
+
+  .modalUpload.show {
+    display: flex !important;
+  }
+
+  .modalUpload .progress {
     width: 100%;
   }
 
-  .modalFile button {
+  .width-100 {
+    width: 100% !important;
+  }
+
+  .height-100 {
+    height: 100% !important;
+  }
+
+  .modalUpload  button {
     font-size: 14px;
   }
 
-  .modalFile .modal-title {
+  .modalUpload .modal-title {
     color: #73879C;
-    font-size: 16px;
+    font-size: 14px;
   }
 
-  .modalFile.modal {
+  .modalUpload .modal {
     top: 50%;
     transform: translate(0, -50%);
+  }
+
+  .progress-bar {
+    background-color: #ff410f;
   }
 /* end form */
 
@@ -262,6 +312,10 @@
 /* end company profile */
 
 /* begin homepage */
+
+  .homepage {
+    padding-top: 50px;
+  }
   .homepage .iconItem {
     font-size: 40px;
     color: #73879C;
@@ -380,13 +434,13 @@
 .btn-secondary:hover,
 .btn-orange:focus,
 .btn-secondary:focus {
-  background-color: #f3714f !important;
-  border-color: #f3714f !important;
+  background-color: #ff410f !important;
+  border-color: #ff410f !important;
   color: #fff !important;
 }
 .btn-orange {
-  background-color: #f3714f !important;
-  border-color: #f3714f !important;
+  background-color: #ff410f !important;
+  border-color: #ff410f !important;
   color: #fff !important;
 }
 
@@ -407,8 +461,33 @@
   font-weight: 600;
 }
 
+.relative {
+  position: relative;
+}
 
+.absolute {
+  position: absolute;
+}
 
+.middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+}
+
+.half {
+  width: 50%;
+  height: 50%;
+}
+
+.centered {
+  margin: 0 auto;
+}
 
 
 

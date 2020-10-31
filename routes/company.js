@@ -45,8 +45,8 @@ module.exports = (app) => {
 
     company.save()
       .then(() => {
-        req.flash('success', 'Company data has been added.');
-        res.redirect('/companies');
+        // req.flash('success', 'Company data has been added.');
+        res.status(200).json(company);
       })
       .catch(err => res.status(400).json(`Error: ${err}`));
   });
@@ -67,6 +67,7 @@ module.exports = (app) => {
 
   app.get('/companies', (req, res) => {
     Company.find({}, (err, result) => {
+      
       res.render('company/companies', {
         title: 'All Companies || RateMe',
         user: req.user,

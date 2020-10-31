@@ -106,7 +106,8 @@ $(document).ready(function () {
           review: review,
           sender: sender,
         },
-        success: function () {
+        success: function (data) {
+          console.log("data", data)
           $('#review').val('');
           $('#sender').val('');
           $('#id').val('');

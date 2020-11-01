@@ -2,7 +2,7 @@ $(document).ready(function () {
   
   let $form = $('#companyForm');
   let $loading = $('.create-company .loading');
-  let $successMessage = $('.create-company #success-message');
+  let $successMessage = $('.create-company .success-message');
   let $register = $('.create-company #register');
   let $input = $('.create-company .input');
 

@@ -1,43 +1,40 @@
 <% layout('layout2') %>
-
 <div id="wrapper">
   <div id="page-content-wrapper">
     <% include ../partials/navbar %>
-    <div class="container">
-
-      <h4 class="mainTitle text-center">Company Employees</h4>
+    <div class="container employees-page pt-50">
+      <h4 class="mainTitle text-center mb-4">Company employees</h4>
       <div class="row">
         <div class="col-md-8 offset-md-2">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th width="33.33%">Fullname</th>
-                <th width="33.33%">Position</th>
-                <th width="33.33%">Action</thwidth="33.33%">
-              </tr>
-            </thead>
-  
-            <tbody>
-              <% if(data.employees.length > 0) {%> <%
-                data.employees.forEach(function(val){ %>
-                <tr>
-                  <td><%= val.employeeFullname %></td>
-                  <td><%= val.employeeRole %></td>
-                  <td>
-                    <a 
-                      href="/message/<%= val.employeeId %>"
-                      class="btn btn-block btn-secondary"
-                    >
-                      Send Message
-                    </a>
-                  </td>
-                </tr>
-              <% }) %> <% } else {%>
-                <tr>
-                  <td><p>No registered employee yet</p></td>
-                </tr>
-              <% } %>
-            </tbody>
+            <% if(data.employees.length > 0) { %>
+              <table class="table">
+                <thead>
+                  <tr class="text colorGray">
+                    <th width="33.33%">Fullname</th>
+                    <th width="33.33%">Position</th>
+                    <th width="33.33%">Action</th>
+                  </tr>
+                </thead>
+      
+                <tbody>
+                  <% data.employees.forEach(function(val) { %>
+                    <tr>
+                      <td><%= val.employeeFullname %></td>
+                      <td><%= val.employeeRole %></td>
+                      <td>
+                        <a 
+                          href="/message/<%= val.employeeId %>"
+                          class="btn btn-block btn-secondary size-14 min-100"
+                        >
+                          Send Message
+                        </a>
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+            <% } else { %>
+              <div class="text colorGray text-center mt-4">Not employee registered yet</div>
+            <% } %>
           </table>
         </div>
       </div>

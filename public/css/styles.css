@@ -15,6 +15,16 @@
     cursor: pointer;
   }
 
+  table, th, td {
+    border: 1px solid #e6e2db;
+    border-collapse: collapse;
+  }
+
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #dee2e6;
+}
+
   #wrapper {
     position: relative;
     max-width: 1140px;
@@ -90,6 +100,11 @@
     font-family: 'Roboto', sans-serif;
   }
 
+  button:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
   ul {
     list-style: none;
     margin: 0;
@@ -126,7 +141,7 @@
   }
 
   .colorGreen {
-    color: #155724;
+    color: #155724 !important;
   }
 
   .bgGreen {
@@ -160,7 +175,7 @@
   }
 
   .subText {
-    font-size: 12px;
+    font-size: 13px;
     color: #73879C;
     letter-spacing: 0.3px;
   }
@@ -183,7 +198,7 @@
   }
 
   .navbar li a {
-    color: #73879C;
+    color: #4a4a4a;
   }
 
   .navbar li .nav-link {
@@ -197,6 +212,14 @@
 
   .navbar li a:hover {
     color: #ff410f;
+  }
+
+  .pt-50 {
+    padding-top: 50px;
+  }
+
+  .pb-50 {
+    padding-bottom: 50px;
   }
 
 /* end common */
@@ -364,6 +387,10 @@
     min-width: 150px;
   }
 
+  .min-120 {
+    min-width: 120px;
+  }
+
   .min-100 {
     min-width: 100px;
   }
@@ -442,9 +469,11 @@
 
 /* end chat */
 
-#star_rating img{
-  width: 30px;
-  height: 30px;
+#star_rating img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 /* override button */
@@ -512,6 +541,10 @@
   color: #fff !important;
   background-color: #6c757d !important;
   border-color: #6c757d !important;
+  cursor: not-allowed;
+}
+
+.form-control:disabled, .form-control[readonly] {
   cursor: not-allowed;
 }
 

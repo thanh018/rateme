@@ -16,9 +16,11 @@ module.exports = (app) => {
   });
 
   app.post('/review/:id', (req, res) => {
+  console.log("req.params.id ", req.params.id)
     async.waterfall([
       function (callback) {
         Company.findOne({ _id: req.params.id }, (err, result) => {
+          console.log("result", result)
           callback(err, result);
         });
       },
@@ -43,9 +45,11 @@ module.exports = (app) => {
             $inc: { ratingSum: req.body.clickedValue }, // The $inc operator increments a field by a specified value
             // ratingSum = ratingSum + req.body.clickedValue
           },
-          (err) => {
-            req.flash('success', 'Your review has been added.');
-            res.redirect('/company-profile/' + req.params.id);
+          err => {
+            if (err) { console.log(err) };
+            // req.flash('success', 'Your review has been added.');
+            // res.redirect('/company-profile/' + req.params.id);
+            res.status(200).json({ company: result });
           },
         );
       },

@@ -5,7 +5,7 @@ $(document).ready(function () {
   const $logo = $('.logo-image');
   const $modalUpload = $('.modalUpload');
   const $progressBar = $('.progress-bar');
-  const $completed = $('#completed');
+  const $completed = $('.completed');
   $uploadBtn.on('click', function () {
     $image .click();
     $progressBar.text('0%');

@@ -7,7 +7,16 @@
       <li><a class="nav-link" href="/companies/leaderboard">Leaderboard</a></li>
     </ul>
     <ul class="d-flex align-items-center">
-      <li><a class="nav-link font-bold shadow-light colorGray radius-5" href="/home"><%= user.fullname %></a></li>
+      <li class="">
+        <a class="d-flex align-items-center nav-link font-bold colorGray radius-5 py-1" href="/user/profile">
+          <% if (user.avatar.length) { %>
+            <img src="/uploads/<%= user.avatar %>" class="imgCircle mr-2" width="40px" height="40px" />
+          <%} else { %>
+            <img src="/images/default.png" class="imgCircle mr-2" width="40px" height="40px" />
+          <% } %>
+          <span><%= user.fullname %></span>
+        </a>
+      </li>
       <li><a class="nav-link logout-link py-0 px-0 ml-4" href="/logout">
       
         <i class="fa fa-sign-out"></i>

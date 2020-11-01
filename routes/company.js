@@ -5,6 +5,7 @@ var fs = require('fs');
 var async = require('async');
 const upload = require('../config/uploadMiddleware');
 const Resize = require('../config/Resize');
+const isEmpty = require('lodash/isEmpty');
 
 var Company = require('../models/company');
 var User = require('../models/user');
@@ -79,7 +80,6 @@ module.exports = (app) => {
   app.get('/company-profile/:id', (req, res) => {
     Company.findOne({ _id: req.params.id }, (err, data) => {
       var avg = arrayAverage(data.ratingNumber);
-      console.log(avg);
       res.render('company/company-profile', {
         title: 'Company Name',
         user: req.user,
@@ -143,7 +143,7 @@ module.exports = (app) => {
               result.company.image = data.image;
 
               result.save(() => {
-                res.redirect('/home');
+                res.status(200).json({ company: data });
               });
             });
           },

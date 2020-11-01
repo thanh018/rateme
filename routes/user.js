@@ -89,6 +89,19 @@ module.exports = (app, passport) => {
     res.render('home', { title: 'Home', user: req.user }),
   );
 
+  app.get('/user/profile', (req, res) =>
+    res.render('user/user-profile', { title: 'User profile', user: req.user }),
+  );
+
+  app.post('/user/profile', (req, res) => {
+    User.findOne({ _id: req.user._id }, (err, result) => {
+      if (err) res.status(400).json(`Error ${error}`)
+      result.avatar = req.body.avatar;
+      console.log("req.body.avatar", req.body.avatar)
+      result.save(() => res.status(200).json({ user: result }));
+    });
+  });
+
   app.get('/forgot', (req, res) => {
     var errors = req.flash('error');
     var info = req.flash('info');

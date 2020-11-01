@@ -3,8 +3,8 @@
 <div id="wrapper">
   <div id="page-content-wrapper">
     <% include ../partials/navbar %>
-    <div class="container">
-      <h4 class="mainTitle text-center mt-4 mb-0">Company Profile</h4>
+    <div class="container company-profile-page pt-50">
+      <h4 class="mainTitle text-center my-0">Company Profile</h4>
       <div class="row mb-3 justify-content-end">
         <a href="/companies" class="btn btn-secondary size-14 min-120 text-center">
           <span>Companies</span>
@@ -62,7 +62,7 @@
               <div class="borderGrayBottom my-3"></div>
 
               <div class="groupBtn">
-                <% if(user.company.name != data.name) {%>
+                <% if(user.company.name !== data.name) {%>
                   <a
                     href="/company/register-employee/<%= id %>"
                     class="btn btn-block btn-secondary"
@@ -70,15 +70,11 @@
                     Register me as an employee
                   </a>
                 <% } else { %>
-                  <h2 class="text text-center colorMain mb-3">You are an employee</h2>
+                  <h2 class="text text-center mb-3">
+                    You're an employee -
+                    <span class="text-capitalize"><%= user.role %></span>
+                  </h2>
                 <% }%>
-                <a
-                  href="/review/<%= data._id %>"
-                  class="btn btn-block btn-secondary"
-                >
-                  Rate this company
-                </a>
-      
                 <a
                   href="/<%= data.name %>/employees"
                   class="btn btn-block btn-secondary"
@@ -115,12 +111,12 @@
                   <span class="star" data-score="<%= average %>"></span>
                 </h1>
                 <h2 class="text">Average Rating (<%= average %>)</h2>
-                <h3 class="subText">Based on 5 reviews</h3>
+                <h3 class="subText">Based on <span><%= data.ratingNumber.length %></span> reviews</h3>
               </div>
             </div>
           </div>
           <div class="row mt-3 justify-content-end">
-            <a href="/review/<%= id %>" class="btn btn-secondary btn-review"> Write Review</a>
+            <a href="/review/<%= id %>" class="btn btn-secondary btn-review"> Rate & Write Review</a>
           </div>
           <div class="reviewList">
             <h2 class="row subTitle mb-3">Reviews (<%= data.ratingNumber.length %>)</h2>
@@ -138,7 +134,7 @@
                       />
                     <%} else {%>
                       <img
-                        src="http://placehold.it/50x50"
+                        src="/images/default.png"
                         width="40px"
                         height="40px"
                         alt="Logo"
@@ -148,23 +144,23 @@
                   </div>
     
                   <div class="reviewInfo">
-                    <span class="mb-1">
-                      <a class="colorMain text-capitalize text" href="#"><%= val.userFullname %></a> 
+                    <span
+                      class="star mb-1 d-block"
+                      data-score="<%= val.userRating %>"
+                    ></span>
+                    <span class="my-0 d-flex align-items-center">
+                      <a class="colorGreen text-capitalize text" href="#"><%= val.userFullname %></a> 
                       <% if (val.userRole) { %>
-                        <span class="subText colorGray text-capitalize">| <%=val.userRole %></span>
+                        <span class="subText colorGray ml-1 text-capitalize"> - <%=val.userRole %></span>
                       <% } %>
   
                       <% if (val.companyName) { %>
-                        <span class="subText text-capitalize mb-1">| <%= val.companyName %></span>
+                        <span class="subText ml-1 text-capitalize colorMain"> - <%= val.companyName %></span>
                       <% } %>
                       
                     </span>
                     
                     <p class="subText mb-0"><%= val.userReview %></p>
-                    <span
-                      class="star"
-                      data-score="<%= val.userRating %>"
-                    ></span>
                   </div>
                 </div>
               <% })%>

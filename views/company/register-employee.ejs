@@ -3,33 +3,45 @@
 <div id="wrapper">
   <div id="page-content-wrapper">
     <% include ../partials/navbar %>
-    <div class="container">
+    <div class="container register-employee-page pt-50">
 
-      <h4 class="mainTitle text-center">Register Employee</h4>
+      <h4 class="mainTitle text-center mb-4">Register Employee</h4>
+      <div class="row mb-3 justify-content-end">
+        
+        <a href="/company-profile/<%= data._id %>" class="btn btn-secondary size-14 min-150 text-center">
+          <span>Company detail</span>
+          <i class="fa fa-arrow-right square ml-1"></i>
+        </a>
+      </div>
       <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <div class="form-group">
-            <span for="">Employee's name:</span>
-            <span class="subText ml-1 text-capitalize colorMain"><%= user.fullname %></span>
+        <div class="col-md-4 offset-md-4 relative">
+          <div class="loading absolute middle text-center d-none">
+            <img src="/images/loading.gif" width="150" height="150" class="d-inline-block"/>
           </div>
           <div class="form-group">
-            <span for="">Employee's email:</span>
-            <span class="subText ml-1 colorMain"><%= user.email %></span>
+            <span class="info-item min-150 d-inline-block">Full name:</span>
+            <span class="subText ml-1 text-capitalize colorGreen"><%= user.fullname %></span>
           </div>
           <div class="form-group">
-            <span for="">Company that employee will register:</span>
-            <span class="subText ml-1 text-capitalize colorMain"><%= data.name %></span>
+            <span class="info-item min-150 d-inline-block">Email:</span>
+            <span class="subText ml-1 colorGreen"><%= user.email %></span>
+          </div>
+          <div class="form-group">
+            <span class="info-item min-150 d-inline-block">Registering company:</span>
+            <a class="subText ml-1 text-capitalize colorMain" href="/company-profile/<%= data._id %>"><%= data.name %></a>
           </div>
   
-          <form action="" method="post">
+          <form class="form-employee" action="" method="post">
             <div class="form-group">
-              <input
-                id="role"
-                class="form-control"
-                name="role"
-                type="text"
-                placeholder="Employee's role"
-              />
+              <select class="form-control text select" id="">
+                <option value="">Select a role</option>
+                <option value="developer">Developer</option>
+                <option value="leader">Leader</option>
+                <option value="qc">QC</option>
+                <option value="architect">Architect</option>
+              </select>
+              <p id="role-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Role is required</p>
+
             </div>
   
             <div class="form-group">
@@ -37,11 +49,17 @@
                 type="submit"
                 id="role"
                 value="Register"
-                class="form-control btn btn-secondary"
+                class="form-control btn btn-secondary registerBtn"
                 name="employeeRole"
               />
             </div>
           </form>
+        </div>
+        <div class="col-md-4 errors pr-0">
+          <p class="success-message text-center text my-2 py-2 colorGreen bgGreen d-none">
+            <i class="fa fa-check-circle square mr-1"></i>
+            <span>Role was registered successfully</span>
+          </p>
         </div>
       </div>
     </div>

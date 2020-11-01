@@ -3,20 +3,23 @@
 <div id="wrapper">
   <div id="page-content-wrapper">
     <% include ../partials/navbar %>
-    <div class="container">
+    <div class="container pt-50 review-page">
       <div class="text-center">
         <h2 class="mainTitle text-center">Write Review</h2>
       </div>
       <div class="row mb-3 justify-content-end">
         
         <a href="/company-profile/<%= data._id %>" class="btn btn-secondary size-14 min-120 text-center">
-          <span>See reviews</span>
+          <span>All reviews</span>
           <i class="fa fa-arrow-right square ml-1"></i>
         </a>
       </div>
       <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <form action="" method="post">
+        <div class="col-md-4 offset-md-4">
+          <form method="POST" id="form-review" enctype="multipart/form-data" class="relative">
+            <div class="loading absolute middle text-center d-none">
+              <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
+            </div>
             <input
               class="form-control"
               id="id"
@@ -24,19 +27,21 @@
               type="hidden"
             />
             <div class="form-group">
-              <label class="colorGray">From Company (Reviewer's company)</label>
+              <label class="colorGray mb-1">Sender</label>
               <input
                 id="sender"
-                class="form-control"
+                class="form-control input"
                 name="sender"
                 value="<%= user.company.name %>"
                 type="text"
-                placeholder="You have not registered any company"
+                placeholder="Not registered. Please enter your company"
               />
+              <p id="sender-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Sender is required</p>
+
             </div>
   
             <div class="form-group">
-              <label class="colorGray">Receiving Company</label>
+              <label class="colorGray mb-1">To company</label>
               <input
                 id="receiver"
                 class="form-control"
@@ -44,39 +49,53 @@
                 value="<%= data.name %>"
                 type="text"
                 placeholder="Receiving Company"
+                disabled
               />
             </div>
   
             <div class="form-group">
-              <div id="star_rating">
-                <img id="1_star" src="/images/star_off.png" alt="1" title="Bad" />
+              <div id="star_rating" class="d-flex align-items-end">
+                <img
+                  id="1_star"
+                  class="item_star"
+                  src="/images/star_off.png"
+                  alt="1"
+                  title="Bad"
+                />
                 <img
                   id="2_star"
+                  class="item_star"
                   src="/images/star_off.png"
                   alt="2"
                   title="Poor"
                 />
                 <img
                   id="3_star"
+                  class="item_star"
                   src="/images/star_off.png"
                   alt="3"
                   title="Fair"
                 />
                 <img
                   id="4_star"
+                  class="item_star"
                   src="/images/star_off.png"
                   alt="4"
                   title="Good"
                 />
                 <img
                   id="5_star"
+                  class="item_star"
                   src="/images/star_off.png"
                   alt="5"
                   title="Excellent"
                 />
   
-                <span class="ml-3" id="showTitle"></span>
+                <span id="show-title" class="subText colorGreen ml-2">
+                  <span style="color: #721c24;">Not rated yet</span>
+                </span>
               </div>
+              <p id="clickedValue-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Rating is required</p>
             </div>
   
             <div class="form-group">
@@ -85,9 +104,11 @@
                 id="review"
                 rows="8"
                 cols="80"
-                class="form-control subText"
+                class="form-control subText input"
                 placeholder="Review"
-              >This company is okay for now.</textarea>
+              ></textarea>
+              <p id="review-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Review is required</p>
+
             </div>
   
             <div class="form-group">
@@ -101,10 +122,11 @@
             </div>
           </form>
         </div>
-        <div class="col-md-3">
-          <% if(hasMsg) {%>
-            <div class="alert alert-success"><%= msg %></div>
-          <% }%>
+        <div class="col-md-4">
+          <p class="text-center success-message text my-2 py-2 colorGreen bgGreen d-none">
+            <i class="fa fa-check-circle square mr-1"></i>
+            <span>Company was created successfully</span>
+          </p>
         </div>
       </div>
     </div>

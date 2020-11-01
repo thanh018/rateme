@@ -1,12 +1,12 @@
 <% layout('layout2') %>
 
 <div id="wrapper">
-  <div id="page-content-wrapper" class="create-company height-100vh py-0">
+  <div id="page-content-wrapper" class="height-100vh py-0">
     <% include ../partials/navbar %>
 
-    <div class="container new-company-page pt-50">
+    <div class="container user-profile-page pt-50">
       <div class="text-center">
-        <p class="mainTitle my-0">New company</p>
+        <p class="mainTitle my-0">User profile</p>
       </div>
       <div class="row mb-3 mr-0 justify-content-end">
         <a href="/companies" class="btn btn-secondary size-14 min-120 text-center">
@@ -17,36 +17,46 @@
       <div class="row">
         <div class="col-md-4 offset-md-4 relative">
           <form
-            id="companyForm"
-            action="/company/create"
+            id="userProfileForm"
+            action=""
             enctype="multipart/form-data"
             method="POST"
           >
             <div class="form-group">
               <div
-                class="logo-company centered mb-3 relative input"
+                class="centered mb-3 relative input"
                 data-toggle="modal"
-                data-target="#file"
+                data-target="#avatar"
               >
-                <img
-                  src="/images/logo-default.png"
-                  width="200"
-                  height="200"
-                  alt="Logo"
-                  class="imgCircle logo-image pointer"
-                />
+                <% if (user.avatar.length) { %>
+                  <img
+                    src="/uploads/<%= user.avatar %>"
+                    width="200"
+                    height="200"
+                    alt="Logo"
+                    class="imgCircle logo-image pointer"
+                  />
+                <%} else { %>
+                  <img
+                    src="/images/logo-default.png"
+                    width="200"
+                    height="200"
+                    alt="Logo"
+                    class="imgCircle logo-image pointer"
+                  />
+                <% } %>
                 <div class="loading absolute middle text-center d-none">
                   <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
                 </div>
               </div>
-              <p id="" class="text-center text my-2 py-1 colorGreen bgGreen d-none completed">Logo has uploaded successfully</p>
-              <p id="image-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Logo is required</p>
+              <p class="completed text-center text my-2 py-1 colorGreen bgGreen d-none completed">Avatar has previewed successfully</p>
+              <p id="avatar-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Avatar is required</p>
   
-              <div id="file" class="modal modalUpload absolute middle align-items-center" tabindex="-1" role="dialog">
+              <div id="avatar" class="modal modalUpload absolute middle align-items-center" tabindex="-1" role="dialog">
                 <div class="modal-dialog my-0 width-100" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title text">Logo</h5>
+                      <h5 class="modal-title text">Avatar</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -76,74 +86,57 @@
             </div>
             <div class="form-group">
               <input
-                id="name"
+                id="fullname"
                 class="form-control input"
-                name="name"
+                name="fullname"
                 type="text"
-                placeholder="Company name"
-              />
-              <p id="name-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Name is required</p>
-
-            </div>
-  
-            <div class="form-group">
-              <input
-                id="address"
-                class="form-control input"
-                name="address"
-                type="text"
-                placeholder="Address"
-              />
-              <p id="address-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Address is required</p>
-
-            </div>
-  
-            <div class="form-group d-none">
-              <input
-                id="city"
-                class="form-control input"
-                name="city"
-                type="text"
-                placeholder="City"
-              />
-            </div>
-  
-            <div class="form-group d-none">
-              <input
-                id="country"
-                class="form-control input"
-                name="country"
-                type="text"
-                placeholder="Country"
-              />
-            </div>
-  
-            <div class="form-group d-none">
-              <input
-                id="sector"
-                class="form-control input"
-                name="sector"
-                type="text"
-                placeholder="Sector"
-              />
-            </div>
-  
-            <div class="form-group d-none">
-              <input
-                id="website"
-                class="form-control input"
-                name="website"
-                type="text"
-                placeholder="Website"
+                placeholder="Fullname"
+                value="<%= user.fullname %>"
+                disabled
               />
             </div>
   
             <div class="form-group">
               <input
-                id="register"
-                value="Register"
+                id="email"
+                class="form-control input"
+                name="email"
+                type="text"
+                placeholder="Email"
+                value="<%= user.email %>"
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                id="company"
+                class="form-control input"
+                name="company"
+                type="text"
+                placeholder="Company"
+                value="<%= user.company.name %>"
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                id="user-role"
+                class="form-control input text-capitalize"
+                name="user-role"
+                type="text"
+                placeholder="Role"
+                value="<%= user.role %>"
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <input
+                id="updateProfile"
+                value="Save"
                 class="form-control btn btn-secondary"
-                name="register"
+                name="updateProfile"
                 type="submit"
               />
             </div>
@@ -152,7 +145,7 @@
         <div class="col-md-4 errors">
           <p class="text-center text my-2 py-2 colorGreen bgGreen d-none success-message">
             <i class="fa fa-check-circle square mr-1"></i>
-            <span>Company was created successfully</span>
+            <span>Profile was updated successfully</span>
           </p>
         </div>
       </div>

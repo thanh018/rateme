@@ -1,17 +1,14 @@
 <% layout('layout') %>
 
-<div class="container">
-  <div class="text-center">
-    <h1 class="mainTitle">
-      <a href="/">RateMe</a>
-    </h1>
-    <h2 class="title">Enter your email</h2>
-  </div>
+<div class="container forgot-password-page pt-100">
   <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <p class="subText">
-        Please enter your email and a password reset link will be sent.
-      </p>
+    <div class="col-md-4 offset-md-4 px-4 py-5 radius-10 shadow-light bgWhite">
+      <div class="text-center">
+        <h1 class="mainTitle logo mb-3">
+          RateMe
+        </h1>
+        <h2 class="title mb-4">Enter your email</h2>
+      </div>
       <form method="POST" action="/forgot">
         <div class="form-group input_group">
           <input
@@ -20,7 +17,7 @@
             name="email"
             type="text"
             autocomplete="on"
-            placeholder="EMAIL"
+            placeholder="Email"
             style="margin-bottom: 20px"
           />
         </div>
@@ -29,14 +26,16 @@
           <input
             type="submit"
             value="Send"
-            class="form-control btn btn-secondary"
+            class="form-control btn btn-primary"
             name="submit"
           />
         </div>
       </form>
-  
       <div>
-        <h4 class="subText">Already reset your password? <a href="/login">Login</a></h4>
+        <h4 class="text">
+          <span>Already reset your password?</span>
+          <a href="/login">Login</a>
+        </h4>
       </div>
     </div>
 

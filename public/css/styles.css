@@ -80,6 +80,10 @@
     border-radius: 5px;
   }
 
+  .radius-10 {
+    border-radius: 10px;
+  }
+
   .bgWhite {
     background-color: #fff;
     padding: 15px;
@@ -113,7 +117,7 @@
 
   a {
     transition: all 0.3s ease-out;
-    color: #ff410f;
+    /* color: #ff410f; */
   }
 
   .colorMain {
@@ -148,10 +152,19 @@
     background-color: #d4edda;
   }
 
+  .colorBlue {
+    color: #007bff !important;
+  }
+
+  .colorBlue:hover,
+  .colorBlue:focus {
+    color: #0056b3 !important;
+  }
+
   a:hover,
   a:focus {
     text-decoration: none;
-    color: #ff410f;
+    /* color: #ff410f; */
   }
 
   .mainTitle {
@@ -220,6 +233,10 @@
 
   .pb-50 {
     padding-bottom: 50px;
+  }
+
+  .pt-100 {
+    padding-top: 100px;
   }
 
 /* end common */

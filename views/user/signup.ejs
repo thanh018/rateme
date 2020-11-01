@@ -1,17 +1,16 @@
 <% layout('layout') %>
 
-<div class="relative height-100vh">
+<div class="relative">
 
-  <div class="container absolute middle half width-100">
-    <div class="text-center">
-      <h1 class="mainTitle mb-4 colorMain logo">
-        Rate Me
-      </h1>
-      <h2 class="title mb-3">Sign Up</h2>
-    </div>
-
+  <div class="container signup-page pt-100">
     <div class="row">
-      <div class="col-md-4 offset-md-4">
+      <div class="col-md-4 offset-md-4 px-4 py-5 radius-10 shadow-light bgWhite">
+        <div class="text-center">
+          <h1 class="mainTitle mb-3 logo">
+            Rate Me
+          </h1>
+          <h2 class="title mb-4">Sign up</h2>
+        </div>
         <form method="POST" class="" id="signupForm" action="/signup">
           <div class="form-group">
             <input id="fullname" class="form-control" name="fullname" type="text" autocomplete="on"
@@ -25,7 +24,7 @@
 
 
           <div class="form-group">
-            <input type="submit" id="submit" value="Sign up" class="form-control btn btn-secondary" name="submit"></div>
+            <input type="submit" id="submit" value="Sign up" class="form-control btn btn-primary" name="submit"></div>
         </form>
         <div class="form-group">
           <a href="/auth/facebook" type="button" class="btn btn-facebook">
@@ -34,8 +33,9 @@
           </a>
         </div>
         <div>
-          <h4 class="text">Already have an account?
-            <a href="/login" class="colorMain">Login</a>
+          <h4 class="text mb-0">
+            <span>Already have an account?</span>
+            <a href="/login" class="">Login</a>
           </h4>
         </div>
       </div>

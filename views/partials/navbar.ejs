@@ -9,7 +9,7 @@
     <ul class="d-flex align-items-center">
       <li class="">
         <a class="d-flex align-items-center nav-link font-bold colorGray radius-5 py-1" href="/user/profile">
-          <% if (user.avatar.length) { %>
+          <% if (user.avatar) { %>
             <img src="/uploads/<%= user.avatar %>" class="imgCircle mr-2" width="40px" height="40px" />
           <%} else { %>
             <img src="/images/default.png" class="imgCircle mr-2" width="40px" height="40px" />

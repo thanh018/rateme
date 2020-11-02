@@ -60,6 +60,7 @@ $(document).ready(function () {
 
     if (isValid) {
       $loading.removeClass('d-none');
+      $register.prop('disabled', true);
       $.ajax({
         url: '/company/create',
         type: 'POST',
@@ -73,6 +74,7 @@ $(document).ready(function () {
             }
           });
           if (data) {
+          $register.prop('disabled', false);
             setTimeout(() => {
               window.location.href = 'http://localhost:3000/companies';
             }, 1500);

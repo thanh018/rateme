@@ -8,7 +8,7 @@
     </ul>
     <ul class="d-flex align-items-center">
       <li class="">
-        <a class="d-flex align-items-center nav-link font-bold colorGray radius-5 py-1" href="/user/profile">
+        <a class="d-flex align-items-center nav-link font-bold colorGray radius-5 py-1 px-0" href="/user/profile">
           <% if (user.avatar) { %>
             <img src="/uploads/<%= user.avatar %>" class="imgCircle mr-2" width="40px" height="40px" />
           <%} else { %>
@@ -17,7 +17,7 @@
           <span><%= user.fullname %></span>
         </a>
       </li>
-      <li><a class="nav-link logout-link py-0 px-0 ml-4" href="/logout">
+      <li class="ml-4"><a class="nav-link logout-link py-0 px-0" href="/logout">
       
         <i class="fa fa-sign-out"></i>
       </a></li>

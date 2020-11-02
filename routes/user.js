@@ -62,12 +62,11 @@ module.exports = (app, passport) => {
       failureRedirect: '/login',
       failureFlash: true,
     }),
-    (req, res) => {
+    function(req, res) {
       if (req.body.rememberme)
-        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
-      // 30 days
+        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
       else req.session.cookie.expires = null;
-      res.redirect('/home');
+      // res.redirect('/home');
     },
   );
 

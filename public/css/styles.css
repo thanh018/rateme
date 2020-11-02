@@ -161,6 +161,14 @@
     color: #0056b3 !important;
   }
 
+  .radius-0 {
+    border-radius: 0 !important;
+  }
+
+  .no-border {
+    border: none !important;
+  }
+
   a:hover,
   a:focus {
     text-decoration: none;
@@ -325,11 +333,11 @@
 /* end form */
 
 /* begin errors */
-  .errors .alert-danger {
-    padding: 5px 10px;
-    font-size: 13px;
+  .alert-danger {
+    padding: 10px;
+    font-size: 14px;
   }
-  .errors .close {
+  .alert-danger .close {
     font-size: 18px;
   }
 /* end errors */

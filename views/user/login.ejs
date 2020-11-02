@@ -1,6 +1,6 @@
 <% layout('layout') %>
 <div class="relative">
-  <div class="container login-page pt-100" data-login-clone="">
+  <div class="container login-page pt-100" data-login="">
     <div class="row">
       <div class="col-md-4 offset-md-4 px-4 py-5 radius-10 shadow-light bgWhite">
         <div class="text-center">
@@ -41,7 +41,6 @@
               id="login"
               value="Login"
               class="form-control btn btn-primary"
-              name="login"
             />
           </div>
         </form>
@@ -77,9 +76,16 @@
           <i class="fa fa-check-circle square mr-1"></i>
           <span>Logined in successfully</span>
         </p>
+        <p class="alert alert-danger d-none text-center radius-0 no-border">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">
+            &times;
+          </a>
+          <span></span>
+        </p>
+        <div class="error-message"></div>
         <% if(hasErrors) {%> 
           <% for(var i = 0; i < messages.length; i++) {%>
-            <div class="alert alert-danger d-none">
+            <div class="alert alert-danger">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">
                 &times;
               </a>

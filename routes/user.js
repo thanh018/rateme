@@ -9,7 +9,7 @@ var Company = require('../models/company');
 var secret = require('../secret/secret');
 
 module.exports = (app, passport) => {
-  app.get('/', (req, res, next) => {
+  app.get('/', (req, res) => {
     const user = get(req, 'user', {});
     if (!isEmpty(user)) res.redirect('/home');
     // Company.find({}, (err, result) => {
@@ -54,21 +54,41 @@ module.exports = (app, passport) => {
     }
   });
 
-  app.post(
-    '/login',
-    loginValidation,
-    passport.authenticate('local.login', {
-      successRedirect: '/home',
-      failureRedirect: '/login',
-      failureFlash: true,
-    }),
-    function(req, res) {
-      if (req.body.rememberme)
-        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
-      else req.session.cookie.expires = null;
-      // res.redirect('/home');
-    },
-  );
+  function loginPassport(req, res, next) {
+    passport.authenticate('local.login', function(err, user) {
+      if (err) return next(err);
+      if (!isEmpty(user)) {
+        res.status(200).json({ user })
+      }
+      next();
+    })(req, res, next);
+  }
+
+  // app.post(
+  //   '/login',
+  //   loginValidation,
+  //   passport.authenticate('local.login', {
+  //     successRedirect: '/home',
+  //     failureRedirect: '/login',
+  //     failureFlash: true,
+  //   })
+  // );
+
+  app.post('/login', function(req, res, next) {
+    passport.authenticate('local.login', function(err, user, info) {
+      if (err) {
+        console.log("err", err)
+        return next(err);
+      }
+
+      if (info) { return res.status(400).json({ error: info }) }
+      if (!user) { return res.redirect('/login'); }
+      req.logIn(user, function(err) {
+        if (err) { return next(err); }
+        return res.status(200).json({ user });
+      });
+    })(req, res, next);
+  });
 
   app.get(
     '/auth/facebook',
@@ -94,9 +114,8 @@ module.exports = (app, passport) => {
 
   app.post('/user/profile', (req, res) => {
     User.findOne({ _id: req.user._id }, (err, result) => {
-      if (err) res.status(400).json(`Error ${error}`)
+      if (err) res.status(400).json({ error: err })
       result.avatar = req.body.avatar;
-      console.log("req.body.avatar", req.body.avatar)
       result.save(() => res.status(200).json({ user: result }));
     });
   });

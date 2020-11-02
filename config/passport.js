@@ -63,11 +63,11 @@ passport.use(
           return done(err);
         }
 
-        var messages = [];
-
-        if (!user || !user.validPassword(password)) {
-          messages.push('Email does not exist or password is invalid');
-          return done(null, false, req.flash('error', messages));
+        if (!user) {
+          return done(null, false, 'Incorrect username.');
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, 'Incorrect password.');
         }
 
         return done(null, user);

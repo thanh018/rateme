@@ -100,7 +100,7 @@ $(document).ready(function () {
               }
             });
             setTimeout(() => {
-              window.location.href = `http://localhost:3000/company-profile/${id}`;
+              window.location.href = `http://localhost:5001/company-profile/${id}`;
             }, 1000);
           }
         },

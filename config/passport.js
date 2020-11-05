@@ -24,17 +24,10 @@ passport.use(
     },
     (req, email, password, done) => {
       User.findOne({ email: email }, (err, user) => {
-        if (err) {
-          return done(err);
-        }
+        if (err) done(err);
 
-        if (user) {
-          return done(
-            null,
-            false,
-            req.flash('error', 'User with email already exist.'),
-          );
-        }
+        console.log("user", user)
+        if (user) return done(null, false, 'User with email already exist.');
 
         var newUser = new User();
         newUser.fullname = req.body.fullname;
@@ -59,9 +52,7 @@ passport.use(
     },
     (req, email, password, done) => {
       User.findOne({ email: email }, (err, user) => {
-        if (err) {
-          return done(err);
-        }
+        if (err) return done(err);
 
         if (!user) {
           return done(null, false, 'Incorrect username.');

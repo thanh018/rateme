@@ -13,23 +13,28 @@
   Plugin.prototype = {
     init: function () {
       const $el = this.element;
-      const $formLogin = $el.find('.formLogin');
+      const isSignup = $el.data('is-signup');
+      const $formUser = $el.find('.formUser');
       const $input = $el.find('.input');
       const $loading = $el.find('.loading');
       const $successMessage = $el.find('.success-message');
       const $alertDanger = $el.find('.alert-danger');
       const $errorMessage = $el.find('.error-message');
-      const $loginBtn = $el.find('#login');
+      const $submitBtn = $el.find('.submitBtn');
 
-      const fields = {
-        email: '',
-        password: '',
-      };
+      const fields = isSignup ? { fullname: '', email: '', password: '' } : { email: '', password: '' };
 
-      const errors = {
-        email: 'default',
-        password: 'default',
-      };
+      const errors = isSignup ? 
+        {
+          email: 'default',
+          password: 'default',
+        }
+        :
+        {
+          fullname: 'default',
+          email: 'default',
+          password: 'default',
+        };
 
       let dataForm = {};
 
@@ -42,51 +47,49 @@
         </p>
       `;
 
-      $input.on('change paste keyup', function () {
-        const key = $(this).prop('id');
-        errors[key] = $.trim($(`#${key}`).val());
-        dataForm[key] = $.trim($(`#${key}`).val());
-        const $dangersMessage = $(`#${key}-error`);
+      $input.on('paste keyup', function () {
+        const key = $(this).prop('name');
+        errors[key] = $.trim($formUser.find(`.${key}`).val());
+        dataForm[key] = $.trim($formUser.find(`.${key}`).val());
+        const $dangersMessage = $formUser.find(`.${key}-error`);
         errors[key] ?
           $dangersMessage.addClass('d-none')
           :
           $dangersMessage.removeClass('d-none');
         const disabled = Object.keys(errors).some(key => !errors[key]);
-        $loginBtn.prop('disabled', disabled);
+        $submitBtn.prop('disabled', disabled);
         $errorMessage.find('.close').click();
       });
 
-      $formLogin.on('submit', e => {
+      $formUser.on('submit', e => {
         e.preventDefault();
         let isValid = true;
         Object.keys(fields).forEach(key => {
-          errors[key] = $.trim($(`#${key}`).val());
-          dataForm[key] = $.trim($(`#${key}`).val());
-          const $dangersMessage = $(`#${key}-error`);
+          errors[key] = $.trim($formUser.find(`.${key}`).val());
+          dataForm[key] = $.trim($formUser.find(`.${key}`).val());
+          const $dangersMessage = $formUser.find(`.${key}-error`);
           errors[key] ?
             $dangersMessage.addClass('d-none')
             :
             $dangersMessage.removeClass('d-none');
           if (!dataForm[key]) {
             isValid = false;
-            $loginBtn.prop('disabled', true);
+            $submitBtn.prop('disabled', true);
           }
         });
 
         if (isValid) {
-          const { email, password } = dataForm;
           $.ajax({
-            url: '/login',
+            url: isSignup ? '/signup' : '/login',
             type: 'POST',
-            data: { email, password },
+            data: dataForm,
             success: function (data, status, xhr) {
-              console.log("data", data)
               $loading.removeClass('d-none');
               if (data && xhr.status === 200) {
                 $alertDanger.addClass('d-none');
                 $successMessage.removeClass('d-none');
                 setTimeout(() => {
-                  window.location.href = `http://localhost:3000/home`;
+                  window.location.href = `http://localhost:5001/home`;
                 }, 500)
               }
             },
@@ -94,7 +97,7 @@
               const errorText = xhr.responseJSON.error;
               console.log(xhr.status, xhr.statusText);
               if (xhr.responseJSON.error) {
-                $loginBtn.prop('disabled', true);
+                $submitBtn.prop('disabled', true);
                 $errorMessage.append(renderError(errorText));
                 ;
               }

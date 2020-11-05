@@ -59,6 +59,6 @@ require('./routes/company')(app);
 require('./routes/review')(app);
 require('./routes/message')(app);
 
-app.listen(3000, function () {
-  console.log('Listening on port 3000');
+app.listen(5001, function () {
+  console.log('Listening on port 5001');
 });

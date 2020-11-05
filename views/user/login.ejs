@@ -7,40 +7,38 @@
           <h1 class="mainTitle mb-3 logo">RateMe</h1>
           <h2 class="title mb-4">Login</h2>
         </div>
-        <form method="POST" action="/login" class="formLogin relative">
+        <form method="POST" action="/login" class="formUser formLogin relative">
           <div class="loading absolute middle text-center d-none">
             <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
           </div>
           <div class="form-group">
             <input
-              id="email"
-              class="form-control input"
+              class="email form-control input"
               name="email"
               type="text"
               autocomplete="on"
               placeholder="Email"
             />
-            <p id="email-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Email is required</p>
+            <p class="text-center text mt-3 py-1 colorRed bgRed d-none email-error">Email is required</p>
 
           </div>
     
           <div class="form-group">
             <input
-              id="password"
-              class="form-control input"
+              class="password form-control input"
               name="password"
               type="password"
               placeholder="Password"
             />
-            <p id="password-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Password is required</p>
+            <p class="text-center text mt-3 py-1 colorRed bgRed d-none password-error">Password is required</p>
           </div>
     
           <div class="form-group">
             <input
               type="submit"
-              id="login"
+              id="loginBtn"
               value="Login"
-              class="form-control btn btn-primary"
+              class="form-control btn btn-primary submitBtn loginBtn"
             />
           </div>
         </form>

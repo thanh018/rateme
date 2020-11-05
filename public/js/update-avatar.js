@@ -36,7 +36,7 @@ $(document).ready(function () {
           $successMessage.removeClass('d-none');
           if (data) {
             setTimeout(() => {
-              window.location.href = 'http://localhost:3000/home';
+              window.location.href = 'http://localhost:5001/home';
             }, 1500);
           }
         },

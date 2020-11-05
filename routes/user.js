@@ -24,22 +24,12 @@ module.exports = (app, passport) => {
     else {
       const errors = req.flash('error');
       res.render('user/signup', {
-        title: 'Sign Up',
+        title: 'Sign up',
         messages: errors,
         hasErrors: errors.length > 0,
       });
     }
   });
-
-  app.post(
-    '/signup',
-    validate,
-    passport.authenticate('local.signup', {
-      successRedirect: '/home',
-      failureRedirect: '/signup',
-      failureFlash: true,
-    }),
-  );
 
   app.get('/login', (req, res) => {
     const user = get(req, 'user', {});
@@ -64,15 +54,22 @@ module.exports = (app, passport) => {
     })(req, res, next);
   }
 
-  // app.post(
-  //   '/login',
-  //   loginValidation,
-  //   passport.authenticate('local.login', {
-  //     successRedirect: '/home',
-  //     failureRedirect: '/login',
-  //     failureFlash: true,
-  //   })
-  // );
+  app.post('/signup', function(req, res, next) {
+    passport.authenticate('local.signup', function(err, user, info) {
+      if (err) {
+        console.log("err", err)
+        return next(err);
+      }
+
+      if (info) { return res.status(400).json({ error: info }) }
+      if (!user) { return res.redirect('/signup'); }
+      console.log("passport.authenticate -> info", info)
+      req.logIn(user, function(err) {
+        if (err) { return next(err); }
+        return res.status(200).json({ user });
+      });
+    })(req, res, next);
+  });
 
   app.post('/login', function(req, res, next) {
     passport.authenticate('local.login', function(err, user, info) {
@@ -178,7 +175,7 @@ module.exports = (app, passport) => {
             text:
               'You have requested for password reset token. \n\n' +
               'Please click on the link to complete the process: \n\n' +
-              'http://localhost:3000/reset/' +
+              'http://localhost:5001/reset/' +
               rand +
               '\n\n',
           };

@@ -76,7 +76,7 @@ $(document).ready(function () {
           if (data) {
           $register.prop('disabled', false);
             setTimeout(() => {
-              window.location.href = 'http://localhost:3000/companies';
+              window.location.href = 'http://localhost:5001/companies';
             }, 1500);
           }
         },

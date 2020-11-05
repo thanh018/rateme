@@ -2,7 +2,7 @@
 
 <div class="relative">
 
-  <div class="container signup-page pt-100">
+  <div class="container signup-page pt-100" data-login="" data-is-signup="1">
     <div class="row">
       <div class="col-md-4 offset-md-4 px-4 py-5 radius-10 shadow-light bgWhite">
         <div class="text-center">
@@ -11,20 +11,28 @@
           </h1>
           <h2 class="title mb-4">Sign up</h2>
         </div>
-        <form method="POST" class="" id="signupForm" action="/signup">
+        <form method="POST" class="formUser formSignup relative" id="signupForm" action="/signup">
+          <div class="loading absolute middle text-center d-none">
+            <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
+          </div>
           <div class="form-group">
-            <input id="fullname" class="form-control" name="fullname" type="text" autocomplete="on"
-              placeholder="Full name"></div>
+            <input class="form-control fullname input" name="fullname" type="text" autocomplete="on" placeholder="Full name">
+            <p class="text-center text mt-3 py-1 colorRed bgRed d-none fullname-error">Fullname is required</p>
+          </div>
 
           <div class="form-group">
-            <input id="email" class="form-control" name="email" type="text" autocomplete="on" placeholder="Email"></div>
+            <input class="form-control email input" name="email" type="text" autocomplete="on" placeholder="Email">
+            <p class="text-center text mt-3 py-1 colorRed bgRed d-none email-error">Email is required</p>
+          </div>
 
           <div class="form-group">
-            <input id="password" class="form-control" name="password" type="password" placeholder="Password"></div>
-
-
+            <input class="form-control password input" name="password" type="password" placeholder="Password">
+            <p class="text-center text mt-3 py-1 colorRed bgRed d-none password-error">Password is required</p>
+          </div>
           <div class="form-group">
-            <input type="submit" id="submit" value="Sign up" class="form-control btn btn-primary" name="submit"></div>
+            <input type="submit" id="signupBtn" value="Sign up" class="form-control btn btn-primary submitBtn signupBtn"
+              name="submit">
+          </div>
         </form>
         <div class="form-group">
           <a href="/auth/facebook" type="button" class="btn btn-facebook">
@@ -40,15 +48,26 @@
         </div>
       </div>
       <div class="col-md-4 errors">
+        <p class="text-center text my-2 py-2 colorGreen bgGreen d-none success-message">
+          <i class="fa fa-check-circle square mr-1"></i>
+          <span>Signed in successfully</span>
+        </p>
+        <p class="alert alert-danger d-none text-center radius-0 no-border">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">
+            &times;
+          </a>
+          <span></span>
+        </p>
+        <div class="error-message"></div>
         <% if(hasErrors) {%>
-          <% for(var i = 0; i <messages.length; i++) {%>
-            <div class="alert alert-danger">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">
-                &times;
-              </a>
-              <%= messages[i] %>
-            </div>
-          <% } %>
+        <% for(var i = 0; i <messages.length; i++) {%>
+        <div class="alert alert-danger">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">
+            &times;
+          </a>
+          <%= messages[i] %>
+        </div>
+        <% } %>
         <% } %>
       </div>
     </div>

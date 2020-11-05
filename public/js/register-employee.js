@@ -37,7 +37,7 @@ $(document).ready(function () {
             $successMessage.removeClass('d-none');
             setTimeout(() => {
               $loading.addClass('d-none');
-              window.location.href = `http://localhost:3000/company-profile/${id}`;
+              window.location.href = `http://localhost:5001/company-profile/${id}`;
             }, 1000);
           }
         },

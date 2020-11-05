@@ -12,9 +12,6 @@ module.exports = (app, passport) => {
   app.get('/', (req, res) => {
     const user = get(req, 'user', {});
     if (!isEmpty(user)) res.redirect('/home');
-    // Company.find({}, (err, result) => {
-    //   res.render("index", { title: "Index", data: result });
-    // });
     else res.redirect('/login');
   });
 
@@ -56,14 +53,10 @@ module.exports = (app, passport) => {
 
   app.post('/signup', function(req, res, next) {
     passport.authenticate('local.signup', function(err, user, info) {
-      if (err) {
-        console.log("err", err)
-        return next(err);
-      }
+      if (err) return next(err);
 
       if (info) { return res.status(400).json({ error: info }) }
       if (!user) { return res.redirect('/signup'); }
-      console.log("passport.authenticate -> info", info)
       req.logIn(user, function(err) {
         if (err) { return next(err); }
         return res.status(200).json({ user });
@@ -73,10 +66,7 @@ module.exports = (app, passport) => {
 
   app.post('/login', function(req, res, next) {
     passport.authenticate('local.login', function(err, user, info) {
-      if (err) {
-        console.log("err", err)
-        return next(err);
-      }
+      if (err) return next(err);
 
       if (info) { return res.status(400).json({ error: info }) }
       if (!user) { return res.redirect('/login'); }

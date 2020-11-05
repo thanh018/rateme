@@ -44,6 +44,9 @@
         </div>
         <% } %>
       </div>
+      <% if (!data.length) { %>
+        <div class="text colorGray text-center mt-4">No companies for now. Please add a new company by clicking new button</div>
+      <% } %>
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@ module.exports = (app) => {
   app.get('/company/create', (req, res) => {
     var success = req.flash('success');
     res.render('company/company', {
-      title: 'Company Registration',
+      title: 'Create company',
       user: req.user,
       success: success,
       noErrors: success.length > 0,
@@ -25,22 +25,10 @@ module.exports = (app) => {
 
   app.post('/company/create', (req, res) => {
     const { body } = req;
-    const {
-      name,
-      address,
-      // city,
-      // country,
-      // sector,
-      // website,
-      image
-    } = body;
+    const { name, address, image } = body;
     const company = new Company({
       name,
       address,
-      // city,
-      // country,
-      // sector,
-      // website,
       image
     });
 
@@ -70,9 +58,10 @@ module.exports = (app) => {
     Company.find({}, (err, result) => {
       
       res.render('company/companies', {
-        title: 'All Companies || RateMe',
+        title: 'Companies',
         user: req.user,
         data: result,
+        noData: 'No companies',
       });
     });
   });
@@ -81,7 +70,7 @@ module.exports = (app) => {
     Company.findOne({ _id: req.params.id }, (err, data) => {
       var avg = arrayAverage(data.ratingNumber);
       res.render('company/company-profile', {
-        title: 'Company Name',
+        title: 'Company profile',
         user: req.user,
         id: req.params.id,
         data: data,
@@ -93,7 +82,7 @@ module.exports = (app) => {
   app.get('/company/register-employee/:id', (req, res) => {
     Company.findOne({ _id: req.params.id }, (err, data) => {
       res.render('company/register-employee', {
-        title: 'Register Employee',
+        title: 'Register employee',
         user: req.user,
         data: data,
       });
@@ -155,7 +144,7 @@ module.exports = (app) => {
   app.get('/:name/employees', (req, res) => {
     Company.findOne({ name: req.params.name }, (err, data) => {
       res.render('company/employees', {
-        title: 'Company EMployees',
+        title: 'Employees',
         user: req.user,
         data: data,
       });
@@ -165,7 +154,7 @@ module.exports = (app) => {
   app.get('/companies/leaderboard', (req, res) => {
     Company.find({}, (err, result) => {
       res.render('company/leaderboard', {
-        title: 'Companies Leadebaord',
+        title: 'Companies leadebaord',
         user: req.user,
         data: result,
       });
@@ -173,20 +162,21 @@ module.exports = (app) => {
   });
 
   app.get('/company/search', (req, res) => {
-    res.render('company/search', { title: 'Find a Company', user: req.user });
+    res.render('company/search', { title: 'Find a company', user: req.user });
   });
 
-  app.post('/company/search', (req, res) => {
+  app.post('/companies', (req, res) => {
     var name = req.body.search;
     var regex = new RegExp(name, 'i');
 
-    Company.find({ $or: [{ name: regex }] }, (err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      // console.log(data);
-      // console.log('data[0] ',data[0]);
-      res.redirect('/company-profile/' + data[0]._id);
+    Company.find({ $or: [{ name: regex }] }, (err, result) => {
+      if (err) console.log(err);
+      res.render('company/companies', {
+        title: 'Companies',
+        user: req.user,
+        data: result,
+        noData: 'No data was found',
+      });
     });
   });
 };

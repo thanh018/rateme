@@ -26,7 +26,6 @@ passport.use(
       User.findOne({ email: email }, (err, user) => {
         if (err) done(err);
 
-        console.log("user", user)
         if (user) return done(null, false, 'User with email already exist.');
 
         var newUser = new User();
@@ -72,13 +71,10 @@ passport.use(
     secret.facebook,
     (req, token, refreshToken, profile, done) => {
       User.findOne({ facebook: profile.id }, (err, user) => {
-        if (err) {
-          return done(err);
-        }
+        if (err) return done(err);
 
-        if (user) {
-          done(null, user);
-        } else {
+        if (user) done(null, user);
+        else {
           var newUser = new User();
           newUser.facebook = profile.id;
           newUser.fullname = profile.displayName;
@@ -86,9 +82,7 @@ passport.use(
           newUser.tokens.push({ token: token });
 
           newUser.save(function (err) {
-            if (err) {
-              console.log(err);
-            }
+            if (err) console.log(err);
             done(null, newUser);
           });
         }

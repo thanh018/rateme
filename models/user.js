@@ -17,7 +17,7 @@ var userSchema = mongoose.Schema({
   tokens: Array,
 });
 
-userSchema.methods.encryptPassword = (password) => {
+userSchema.methods.encryptPassword = password => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 

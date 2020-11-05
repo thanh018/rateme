@@ -117,11 +117,14 @@
 
   a {
     transition: all 0.3s ease-out;
-    /* color: #ff410f; */
+  }
+
+  .colorOrange {
+    color: #ff410f !important;
   }
 
   .colorMain {
-    color: #ff410f !important;
+    color: #1CB089 !important;
   }
 
   .colorRed {
@@ -172,7 +175,7 @@
   a:hover,
   a:focus {
     text-decoration: none;
-    /* color: #ff410f; */
+    /* color: #1CB089; */
   }
 
   .mainTitle {
@@ -232,7 +235,7 @@
   }
 
   .navbar li a:hover {
-    color: #ff410f;
+    color: #1CB089;
   }
 
   .pt-50 {
@@ -328,7 +331,7 @@
   }
 
   .progress-bar {
-    background-color: #ff410f;
+    background-color: #1CB089;
   }
 /* end form */
 
@@ -506,13 +509,13 @@
 .btn-secondary:hover,
 .btn-orange:focus,
 .btn-secondary:focus {
-  background-color: #ff410f !important;
-  border-color: #ff410f !important;
+  background-color: #1CB089 !important;
+  border-color: #1CB089 !important;
   color: #fff !important;
 }
 .btn-orange {
-  background-color: #ff410f !important;
-  border-color: #ff410f !important;
+  background-color: #1CB089 !important;
+  border-color: #1CB089 !important;
   color: #fff !important;
 }
 
@@ -571,6 +574,10 @@
 
 .form-control:disabled, .form-control[readonly] {
   cursor: not-allowed;
+}
+
+.formSearch .search-group {
+  width: 340px;
 }
 
 

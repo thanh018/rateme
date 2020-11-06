@@ -124,7 +124,7 @@
   }
 
   .colorMain {
-    color: #1CB089 !important;
+    color: #ff410f !important;
   }
 
   .colorRed {
@@ -175,7 +175,7 @@
   a:hover,
   a:focus {
     text-decoration: none;
-    /* color: #1CB089; */
+    /* color: #ff410f; */
   }
 
   .mainTitle {
@@ -235,7 +235,7 @@
   }
 
   .navbar li a:hover {
-    color: #1CB089;
+    color: #ff410f;
   }
 
   .pt-50 {
@@ -254,17 +254,21 @@
 
 /* begin form */
   .form-group input {
-    height: 40px;
+    height: 35px;
     font-size: 14px;
   }
 
   .form-group a[type="button"] {
-    height: 40px;
+    height: 35px;
     font-size: 14px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .btn {
+    height: 35px;
   }
 
   .btn-facebook {
@@ -331,7 +335,7 @@
   }
 
   .progress-bar {
-    background-color: #1CB089;
+    background-color: #ff410f;
   }
 /* end form */
 
@@ -509,13 +513,13 @@
 .btn-secondary:hover,
 .btn-orange:focus,
 .btn-secondary:focus {
-  background-color: #1CB089 !important;
-  border-color: #1CB089 !important;
+  background-color: #ff410f !important;
+  border-color: #ff410f !important;
   color: #fff !important;
 }
 .btn-orange {
-  background-color: #1CB089 !important;
-  border-color: #1CB089 !important;
+  background-color: #ff410f !important;
+  border-color: #ff410f !important;
   color: #fff !important;
 }
 

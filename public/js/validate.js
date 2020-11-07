@@ -1,127 +1,108 @@
-$(document).ready(function(){
-    $('#register').on('click', function(){
-        var name = $.trim($('#name').val());
-        var address = $.trim($('#address').val());
-        var city = $.trim($('#city').val());
-        var country = $.trim($('#country').val());
-        var sector = $.trim($('#sector').val());
-        var website = $.trim($('#website').val());
-        var img = $.trim($('#upload-input').val());
-        
-        var isValid = true;
-        
-        if(name == ''){
-            isValid = false;
-            $('#errorMsg1').html('<div class="alert alert-danger">Name field is empty</div>');
-        }else{
-            $('#errorMsg1').html('');
-        }
-        
-        if(address == ''){
-            isValid = false;
-            $('#errorMsg2').html('<div class="alert alert-danger">Address field is empty</div>');
-        }else{
-            $('#errorMsg2').html('');
-        }
-        
-        if(city == ''){
-            isValid = false;
-            $('#errorMsg3').html('<div class="alert alert-danger">City field is empty</div>');
-        }else{
-            $('#errorMsg3').html('');
-        }
-        
-        if(country == ''){
-            isValid = false;
-            $('#errorMsg4').html('<div class="alert alert-danger">Country field is empty</div>');
-        }else{
-            $('#errorMsg4').html('');
-        }
-        
-        if(sector == ''){
-            isValid = false;
-            $('#errorMsg5').html('<div class="alert alert-danger">Sector field is empty</div>');
-        }else{
-            $('#errorMsg5').html('');
-        }
-        
-        if(website == ''){
-            isValid = false;
-            $('#errorMsg6').html('<div class="alert alert-danger">Website field is empty</div>');
-        }else{
-            $('#errorMsg6').html('');
-        }
-        
-        if(isValid == true){
-            
-            var companyData = {
-                name: name,
-                address: address,
-                city: city,
-                country: country,
-                sector: sector,
-                website: website,
-                img: img
-            };
-            
-            $.ajax({
-                url: '/company/create',
-                type: 'POST',
-                data: companyData,
-                success: function(data){
-                    $('#name').val('');
-                    $('#address').val('');
-                    $('#city').val('');
-                    $('#country').val('');
-                    $('#sector').val('');
-                    $('#website').val('');
-                }
-            });
-            
-        }else{
-            return false;
-        }
-        
+
+$(document).ready(function () {
+  let $form = $('#companyForm');
+  let isEditCompany = $form.data('isEdit');
+  let $loading = $('.create-company .loading');
+  let $successMessage = $('.create-company .success-message');
+  let $warningMessage = $('.create-company .warning-message');
+  let $register = $('.create-company #register');
+  let $input = $('.create-company .input');
+
+  let errors = {
+    name: 'default',
+    address: 'default',
+    image: 'default',
+  };
+
+  let fields = {
+    name: '',
+    address: '',
+    image: ''
+  };
+
+  let dataInit = {};
+
+  if (isEditCompany) {
+    dataInit = {
+      name: $('#name').val(),
+      address: $('#address').val(),
+      image: $('#image').attr('src'),
+    }
+  }
+
+  $input.on('change paste keyup', function() {
+    const value = $.trim($(this).val());
+    const id = $(this).prop('id');
+    const $dangersMessage = $(`#${id}-error`);
+    errors[id] = value;
+    
+    value ? $dangersMessage.addClass('d-none') : $dangersMessage.removeClass('d-none');
+
+    const disabled = Object.keys(errors).some(key => !errors[key]);
+    $register.prop('disabled', disabled);
+    $warningMessage.addClass('d-none')
+  });
+
+
+
+  $form.on('submit', function (e) {
+    e.preventDefault();
+    let dataForm = {};
+    let isValid = true;
+
+    Object.keys(fields).forEach(key => {
+      const value = $.trim($(`#${key}`).val());
+      const $dangersMessage = $(`#${key}-error`);
+      dataForm[key] = value;
+      errors[key] = value;
+
+      if (key === 'image') {
+        const src = $('#image').attr('src')
+        dataForm[key] = src;
+        errors[key] = src;
+      }
+
+
+      dataForm[key] ? $dangersMessage.addClass('d-none') : $dangersMessage.removeClass('d-none');
+
+      if (!dataForm[key]) {
+        isValid = false;
+        $register.prop('disabled', true);
+      }
     });
-})
 
 
+    if (isEditCompany && _.isEqual(dataInit, dataForm)) {
+      $warningMessage.removeClass('d-none');
+      $register.prop('disabled', true);
+      return;
+    }
 
+    if (isValid) {
+      $loading.removeClass('d-none');
+      $register.prop('disabled', true);
+      const idCompany = $form.data('idCompany');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      $.ajax({
+        url: isEditCompany ? `/company/${idCompany}` : '/company/create',
+        type: 'POST',
+        data: dataForm,
+        success: function (data) {
+          $successMessage.removeClass('d-none');
+          Object.keys(fields).forEach(key => {
+            $(`#${key}`).val('');
+            if (key === 'image') {
+              $('#image').attr('src', '');
+            }
+          });
+          if (data) {
+          $register.prop('disabled', false);
+            setTimeout(() => {
+              window.location.href = 'http://localhost:5001/companies';
+            }, 1500);
+          }
+        },
+      });
+    } else return false;
+  });
+});

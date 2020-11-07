@@ -1,53 +1,68 @@
-$(document).ready(function(){
-    
-    $('.upload-btn').on('click', function(){
-        $('#upload-input').click();
-        
-        $('.progress-bar').text('0%');
-        $('.progress-bar').width('0%');
-    });
-    
-    $('#upload-input').on('change', function(){
-        var uploadInput = $('#upload-input');
-        
-        if(uploadInput.val() != ''){
-            var formData = new FormData();
-            
-            formData.append('upload', uploadInput[0].files[0]);
-            
-            $.ajax({
-                url: '/upload',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(data){
-                    uploadInput.val('');
-                },
-                
-                xhr: function(){
-                    var xhr = new XMLHttpRequest();
+$(document).ready(function () {
 
-                    xhr.upload.addEventListener('progress', function(e){
-                        if(e.lengthComputable){
-                            var uploadPercent = e.loaded / e.total;
-                            uploadPercent = (uploadPercent * 100);
+  const $uploadBtn = $('.upload-btn');
+  const $image = $('#image');
+  const $logo = $('.logo-image');
+  const $modalUpload = $('.modalUpload');
+  const $progressBar = $('.progress-bar');
+  const $completed = $('.completed');
+  $uploadBtn.on('click', function () {
+    $image .click();
+    $progressBar.text('0%');
+    $progressBar.width('0%');
+  });
 
-                            $('.progress-bar').text(uploadPercent+'%');
-                            $('.progress-bar').width(uploadPercent+'%');
+  $image.on('change', function () {
+    if ($image.val()) {
+      let formData = new FormData();
+      let files = $('#image')[0].files;
+      if (files.length) {
+        formData.append('image', files[0]);
+      }
 
-                            if(uploadPercent === 100){
-                                $('.progress-bar').text('Done');
-                                $('#completed').text('File Uploaded');
-                            }
-                        }
-                    }, false);
+      $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          const { name } = data;
+          if (name) {
+            $logo.attr('src', `/uploads/${name}`);
+            $image.attr('src', name);
+          } 
+        },
 
-                    return xhr;
-                }
-            })
+        xhr: function () {
+          var xhr = new XMLHttpRequest();
+
+          xhr.upload.addEventListener('progress', function (e) {
+            if (e.lengthComputable) {
+              var uploadPercent = Math.floor(e.loaded / e.total);
+              uploadPercent = (uploadPercent * 100);
+
+              $progressBar.text(uploadPercent + '%');
+              $progressBar.width(uploadPercent + '%');
+              if (uploadPercent === 100) {
+                $progressBar.text('Done');
+                $completed.removeClass('d-none');
+                $('#image-error').addClass('d-none');
+              }
+
+              setTimeout(() => {
+                $modalUpload.modal('hide');
+              }, 1000)
+
+              
+            }
+          }, false);
+
+          return xhr;
         }
-    })
+      })
+    }
+  })
 })
 
 

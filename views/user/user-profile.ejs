@@ -1,0 +1,159 @@
+<% layout('layout') %>
+
+<div id="wrapper">
+  <div id="page-content-wrapper" class="height-100vh py-0">
+    <% include ../partials/navbar %>
+
+    <div class="container user-profile-page pt-50">
+      <div class="text-center">
+        <p class="mainTitle my-0">User profile</p>
+      </div>
+      <div class="row mb-3 mr-0 justify-content-end">
+        <a href="/companies" class="btn btn-secondary size-14 min-120 text-center">
+          <span>Companies</span>
+          <i class="fa fa-arrow-right square ml-1"></i>
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-4 offset-md-4 relative">
+          <form
+            id="userProfileForm"
+            action=""
+            enctype="multipart/form-data"
+            method="POST"
+          >
+            <div class="form-group">
+              <div
+                class="centered mb-3 relative input"
+                data-toggle="modal"
+                data-target="#avatar"
+              >
+                <% if (user.avatar) { %>
+                  <img
+                    src="/uploads/<%= user.avatar %>"
+                    width="200"
+                    height="200"
+                    alt="Logo"
+                    class="imgCircle logo-image pointer"
+                  />
+                <%} else { %>
+                  <img
+                    src="/images/logo-default.png"
+                    width="200"
+                    height="200"
+                    alt="Logo"
+                    class="imgCircle logo-image pointer"
+                  />
+                <% } %>
+                <div class="loading absolute middle text-center d-none">
+                  <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
+                </div>
+              </div>
+              <p class="completed text-center text my-2 py-1 colorGreen bgGreen d-none completed">Avatar has previewed successfully</p>
+              <p id="avatar-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Avatar is required</p>
+  
+              <div id="avatar" class="modal modalUpload absolute middle align-items-center" tabindex="-1" role="dialog">
+                <div class="modal-dialog my-0 width-100" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text">Avatar</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+  
+                    <div class="modal-body">
+                      <div class="">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar">0%</div>
+                        </div>
+  
+                        <button class="btn btn-block mt-3 upload-btn colorGray" type="button">
+                          Upload
+                        </button>
+                        <input
+                          type="file"
+                          class="form-control upload-input input"
+                          name="image"
+                          id="image"
+                          src="<%= user.avatar %>"
+                          style="display: none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                id="fullname"
+                class="form-control input"
+                name="fullname"
+                type="text"
+                placeholder="Fullname"
+                value="<%= user.fullname %>"
+                disabled
+              />
+            </div>
+  
+            <div class="form-group">
+              <input
+                id="email"
+                class="form-control input"
+                name="email"
+                type="text"
+                placeholder="Email"
+                value="<%= user.email %>"
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                id="company"
+                class="form-control input"
+                name="company"
+                type="text"
+                placeholder="Company"
+                value="<%= user.company.name %>"
+                disabled
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                id="user-role"
+                class="form-control input text-capitalize"
+                name="user-role"
+                type="text"
+                placeholder="Role"
+                value="<%= user.role %>"
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <input
+                id="updateProfile"
+                value="Save"
+                class="form-control btn btn-secondary"
+                name="updateProfile"
+                type="submit"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="col-md-4 errors">
+          <p class="text-center text my-2 py-2 colorGreen bgGreen d-none success-message">
+            <i class="fa fa-check-circle square mr-1"></i>
+            <span>Profile was updated successfully</span>
+          </p>
+          <p class="text-center text my-2 py-2 colorYellow bgYellow d-none warning-message">
+            <i class="fa fa-warning square mr-1"></i>
+            <span>No data changed</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,9 @@
-<% layout('layout2') %>
+<% layout('layout') %>
 
 <div id="wrapper">
   <div id="page-content-wrapper">
     <% include ../partials/navbar %>
-    <div class="container">
+    <div class="container message-page pt-50">
       <h4 class="mainTitle text-center">Send Message</h4>
       <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -52,7 +52,7 @@
             <textarea
               id="msg"
               name="message"
-              class="form-control"
+              class="form-control text"
               placeholder="Enter message"
               rows="5"
               cols="60"
@@ -64,7 +64,7 @@
               type="submit"
               id="message"
               value="Send Message"
-              class="form-control btn btn-primary"
+              class="form-control btn btn-secondary"
               name="send"
             />
           </div>

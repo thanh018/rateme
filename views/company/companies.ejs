@@ -1,46 +1,90 @@
-<% layout('layout2') %>
+<% layout('layout') %>
 
 <div id="wrapper">
   <div id="page-content-wrapper">
     <% include ../partials/navbar %>
-    <div class="container">
-      <h4 class="title">Companies</h4>
-      <div class="row">
-        <% arrayAverage = function(arr) { return _.reduce(arr, (num1, num2) => {
-        return num1 + num2; }, 0) / (arr.length === 0 ? 1 : arr.length); } %> <%
-        for(var i = 0; i < data.length; i++) {%> <% var total =
-        arrayAverage(data[i].ratingNumber) %>
-
-        <div class="col-md-4">
-          <a href="/company-profile/<%= data[i]._id %>" class="companyItem">
-            <% if (data[i].image) {%>
-              <img
-                src="/uploads/<%= data[i].image %>"
-                class="companyImage"
+    <div class="container relative companies-page pt-50">
+      <h4 class="mainTitle my-0 pb-50 text-center"><%= title %></h4>
+      <div class="row mb-4 mr-0">
+        <div class="col-md-6">
+          <form action="" method="post" class="formSearch d-flex justify-content-start width-100">
+            <div class="form-group mr-2 search-group">
+              <input
+                id=""
+                class="form-control"
+                name="search"
+                type="text"
+                placeholder="Type company name"
               />
-            <%} else {%>
-              <img
-                src="http://placehold.it/100x100"
-                width="100px"
-                height="100px"
-                alt="Logo"
-              />
-            <%}%>
-            <div class="companyInfo">
-              <h5 class=""><%= data[i].name %></h5>
-              <span class="">
-                <i class="star" data-score="<%= total %>"></i>
-                (<%= data[i].ratingNumber.length %>) </span
-              ><br />
-              <i class="fa fa-building-o"> <%= data[i].sector %></i><br />
-              <i class="fa fa-map-marker">
-                <%= data[i].city %>, <%= data[i].country %></i
-              >
             </div>
+
+            <div class="form-group">
+              <input
+                type="submit"
+                id="search"
+                value="Search"
+                class="form-control btn btn-secondary min-120"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6 text-right pr-0">
+          <a href="/company/create" class="btn btn-secondary size-14 min-100 text-center">
+            <i class="fa fa-plus square mr-1"></i>
+            <span>New</span>
           </a>
         </div>
-        <% } %>
       </div>
+      <% if (data.length) { %>
+        <p class="text">Total: <%= data.length %></p>
+        <div class="row">
+          <% function arrayAverage(arr) { %>
+            <%
+              if (!arr.length ) return 0;
+              var sum = _.reduce(arr, (a, b) => a + b, 0);
+              var avg = sum / arr.length;
+              const tenths = avg - Math.floor(avg);
+              if (tenths >= 0.75) return Math.floor(avg) + 1;
+              if (tenths > 0.25 && tenths < 0.75) return Math.floor(avg) + 0.5;
+              return Math.floor(avg);
+            %>
+          <% } %>
+          <% for(var i = 0; i < data.length; i++) { %>
+            <% var total = arrayAverage(data[i].ratingNumber); %>
+            <div class="col-md-4">
+              <div class="companyItem shadow-light">
+                <a class="companyImage" href="/company-profile/<%= data[i]._id %>">
+                  <img
+                    src="/uploads/<%= data[i].image %>"
+                    class="companyImage"
+                    width="100px"
+                    height="100px"
+                  />
+                </a>
+                <div class="companyInfo relative">
+                  <a href="/company/<%= data[i]._id %>" class="absolute colorGray d-block edit-link">
+                    <i class="fa fa-edit square"></i>
+                  </a>
+                  <a href="/company-profile/<%= data[i]._id %>" class="text my-1 colorMain d-block"><%= data[i].name %></a>
+
+                  <% if (data[i].address) {%>
+                    <i class="fa fa-map-marker square"></i>
+                    <span class="subText"><%= data[i].address %></span>
+                    <br />
+                  <%}%>
+                  <span class="">
+                    <i class="star" data-score="<%= total %>"></i>
+                    (<%= data[i].ratingNumber.length %>) 
+                  </span>
+                </div>
+              </div>
+            </div>
+          <% } %>
+
+        </div>
+      <% } else { %>
+        <div class="text colorGray text-center mt-4"><%= noData %></div>
+      <% } %>
     </div>
   </div>
 </div>

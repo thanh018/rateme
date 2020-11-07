@@ -13,7 +13,6 @@ var flash = require('connect-flash');
 var _ = require('underscore');
 var moment = require('moment');
 
-
 var app = express();
 
 mongoose.Promise = global.Promise;
@@ -27,18 +26,19 @@ app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.use(cookieParser());
 
-
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(validator());
 
-app.use(session({
+app.use(
+  session({
     secret: 'Thisismytestkey',
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({mongooseConnection: mongoose.connection})
-}));
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  }),
+);
 
 app.use(flash());
 
@@ -54,15 +54,11 @@ app.locals.moment = moment;
 
 // app.use(globalVar);
 
-
 require('./routes/user')(app, passport);
-require('./routes/company')(app)
-require('./routes/review')(app)
-require('./routes/message')(app)
+require('./routes/company')(app);
+require('./routes/review')(app);
+require('./routes/message')(app);
 
-
-
-app.listen(3000, function(){
-    console.log('Listening on port 3000');
+app.listen(5001, function () {
+  console.log('Listening on port 5001');
 });
-

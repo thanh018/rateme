@@ -1,85 +1,98 @@
 <% layout('layout') %>
-
-<div class="container">
-  <div class="text-center">
-    <h1 class="mainTitle"><a href="/">RateMe</a></h1>
-    <h2 class="title">Login</h2>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <form method="POST" action="/login">
-        <div class="form-group">
-          <input
-            id="email"
-            class="form-control"
-            name="email"
-            type="text"
-            autocomplete="on"
-            placeholder="Email"
-          />
+<div class="relative">
+  <div class="container login-page pt-100" data-login="">
+    <div class="row">
+      <div class="col-md-4 offset-md-4 px-4 py-5 radius-10 shadow-light bgWhite">
+        <div class="text-center">
+          <h1 class="mainTitle mb-3 logo">RateMe</h1>
+          <h2 class="title mb-4">Login</h2>
         </div>
-  
-        <div class="form-group">
-          <input
-            id="password"
-            class="form-control"
-            name="password"
-            type="password"
-            placeholder="Password"
-          />
-        </div>
-  
-        <div class="form-group">
-          <input
-            type="submit"
-            id="login"
-            value="Login"
-            class="form-control btn btn-primary"
-            name="login"
-          />
-        </div>
-  
-        <div class="form-group-checkbox">
-          <label for="">
+        <form method="POST" action="/login" class="formUser formLogin relative">
+          <div class="loading absolute middle text-center d-none">
+            <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
+          </div>
+          <div class="form-group">
             <input
-              type="checkbox"
-              name="rememberme"
-              class=""
-              value="yes"
+              class="email form-control input"
+              name="email"
+              type="text"
+              autocomplete="on"
+              placeholder="Email"
             />
-          </label>
+            <p class="text-center text mt-3 py-1 colorRed bgRed d-none email-error">Email is required</p>
+
+          </div>
+    
+          <div class="form-group">
+            <input
+              class="password form-control input"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+            <p class="text-center text mt-3 py-1 colorRed bgRed d-none password-error">Password is required</p>
+          </div>
+    
+          <div class="form-group">
+            <input
+              type="submit"
+              id="loginBtn"
+              value="Login"
+              class="form-control btn btn-primary submitBtn loginBtn"
+            />
+          </div>
+        </form>
+        <div class="form-group">
+          <a
+            href="/auth/facebook"
+            type="button"
+            class="btn btn-facebook"
+          >
+            <i class="fa fa-facebook"></i>
+            <span>Login with Facebook</span>
+          </a>
+        </div>
+        <div class="form-group-checkbox d-flex align-items-center">
+          <input
+            type="checkbox"
+            name="rememberme"
+            class=""
+            value="yes"
+          />
           <span>&nbsp;&nbsp;Remember me</span>
         </div>
-      </form>
-      <div class="form-group">
-        <a
-          href="/auth/facebook"
-          type="button"
-          class="btn btn-facebook"
-        >
-          <i class="fa fa-facebook"></i>
-          <span>Login with Facebook</span>
-        </a>
+        <div>
+          <h4 class="text">
+            <span>Don't have an account? </span>
+            <a href="/signup" class="">Sign up</a>
+          </h4>
+          <h4 class="text mb-0"><a href="/forgot" class="colorGray">Forgot your password</a></h4>
+        </div>
       </div>
-      <div>
-        <h4 class="subText">
-          Don't have an account? <a href="/signup">Sign Up</a>
-        </h4>
-        <h4 class="subText"><a href="/forgot">Forgot Your Password</a></h4>
+      <div class="col-md-4 errors">
+        <p class="text-center text my-2 py-2 colorGreen bgGreen d-none success-message">
+          <i class="fa fa-check-circle square mr-1"></i>
+          <span>Logined in successfully</span>
+        </p>
+        <p class="alert alert-danger d-none text-center radius-0 no-border">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">
+            &times;
+          </a>
+          <span></span>
+        </p>
+        <div class="error-message"></div>
+        <% if(hasErrors) {%> 
+          <% for(var i = 0; i < messages.length; i++) {%>
+            <div class="alert alert-danger">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                &times;
+              </a>
+              <%= messages[i] %>
+            </div>
+          <% } %> 
+        <% } %>
       </div>
-    </div>
-    <div class="col-md-4 errors">
-      <% if(hasErrors) {%> 
-        <% for(var i = 0; i < messages.length; i++) {%>
-          <div class="alert alert-danger">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">
-              &times;
-            </a>
-            <%= messages[i] %>
-          </div>
-        <% } %> 
-      <% } %>
     </div>
   </div>
 </div>
+

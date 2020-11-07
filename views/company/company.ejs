@@ -1,98 +1,57 @@
-<% layout('layout2') %>
+<% layout('layout') %>
 
 <div id="wrapper">
-  <div id="page-content-wrapper">
+  <div id="page-content-wrapper" class="create-company height-100vh py-0">
     <% include ../partials/navbar %>
 
-    <div class="container">
+    <div class="container new-company-page pt-50">
       <div class="text-center">
-        <p class="title">Register Company</p>
+        <p class="mainTitle my-0"><%= title %></p>
+      </div>
+      <div class="row mb-3 mr-0 justify-content-end">
+        <a href="/companies" class="btn btn-secondary size-14 min-120 text-center">
+          <span>Companies</span>
+          <i class="fa fa-arrow-right square ml-1"></i>
+        </a>
       </div>
       <div class="row">
-        <div class="col-md-4 offset-md-4">
-          <form method="POST" action="/company/create">
+        <div class="col-md-4 offset-md-4 relative">
+          <form
+            id="companyForm"
+            action="/company/create"
+            enctype="multipart/form-data"
+            method="POST"
+            data-is-edit="<%= data ? 1 : '' %>"
+            data-id-company="<%= data ? data.id : '' %>"
+          >
             <div class="form-group">
-              <span id="errorMsg1"></span>
-              <input
-                id="name"
-                class="form-control"
-                name="name"
-                type="text"
-                placeholder="Company Name"
-              />
-            </div>
-  
-            <div class="form-group">
-              <span id="errorMsg2"></span>
-              <input
-                id="address"
-                class="form-control"
-                name="address"
-                type="text"
-                placeholder="Address"
-              />
-            </div>
-  
-            <div class="form-group">
-              <span id="errorMsg3"></span>
-              <input
-                id="city"
-                class="form-control"
-                name="city"
-                type="text"
-                placeholder="City"
-              />
-            </div>
-  
-            <div class="form-group">
-              <span id="errorMsg4"></span>
-              <input
-                id="country"
-                class="form-control"
-                name="country"
-                type="text"
-                placeholder="Country"
-              />
-            </div>
-  
-            <div class="form-group">
-              <span id="errorMsg5"></span>
-              <input
-                id="sector"
-                class="form-control"
-                name="sector"
-                type="text"
-                placeholder="Sector"
-              />
-            </div>
-  
-            <div class="form-group">
-              <span id="errorMsg6"></span>
-              <input
-                id="website"
-                class="form-control"
-                name="website"
-                type="text"
-                placeholder="Website"
-              />
-            </div>
-  
-            <div class="form-group">
-              <button
-                class="btn btn-block btnFile btn-default"
-                type="button"
+              <div
+                class="logo-company centered mb-3 relative input"
                 data-toggle="modal"
                 data-target="#file"
               >
-                Logo
-              </button>
-              <span id="completed"></span>
+                <%
+                  var image = (data && data.image) ? "/uploads/" + data.image : "/images/logo-default.png" 
+                %>
+                <img
+                  src="<%= image %>"
+                  width="200"
+                  height="200"
+                  alt="Logo"
+                  class="imgCircle logo-image pointer"
+                />
+                <div class="loading absolute middle text-center d-none">
+                  <img src="../images/loading.gif" width="150" height="150" class="d-inline-block"/>
+                </div>
+              </div>
+              <p id="" class="text-center text my-2 py-1 colorGreen bgGreen d-none completed">Logo has uploaded successfully</p>
+              <p id="image-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Logo is required</p>
   
-              <div id="file" class="modal modalFile" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+              <div id="file" class="modal modalUpload absolute middle align-items-center" tabindex="-1" role="dialog">
+                <div class="modal-dialog my-0 width-100" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Company Logo</h5>
+                      <h5 class="modal-title text">Logo</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -104,14 +63,15 @@
                           <div class="progress-bar" role="progressbar">0%</div>
                         </div>
   
-                        <button class="btn btn-block btn-secondary mt-3 upload-btn" type="button">
+                        <button class="btn btn-block mt-3 upload-btn colorGray" type="button">
                           Upload
                         </button>
                         <input
                           type="file"
-                          class="form-control"
-                          name="upload"
-                          id="upload-input"
+                          class="form-control upload-input input"
+                          name="image"
+                          id="image"
+                          src="<%= data ? data.image : '' %>"
                           style="display: none"
                         />
                       </div>
@@ -120,32 +80,94 @@
                 </div>
               </div>
             </div>
+            <div class="form-group">
+              <input
+                id="name"
+                class="form-control input"
+                name="name"
+                type="text"
+                placeholder="Company name"
+                value="<%= data ? data.name : '' %>"
+              />
+              <p id="name-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Name is required</p>
+
+            </div>
   
             <div class="form-group">
               <input
-                type="submit"
+                id="address"
+                class="form-control input"
+                name="address"
+                type="text"
+                placeholder="Address"
+                value="<%= data ? data.address : '' %>"
+              />
+              <p id="address-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Address is required</p>
+
+            </div>
+  
+            <div class="form-group d-none">
+              <input
+                id="city"
+                class="form-control input"
+                name="city"
+                type="text"
+                placeholder="City"
+              />
+            </div>
+  
+            <div class="form-group d-none">
+              <input
+                id="country"
+                class="form-control input"
+                name="country"
+                type="text"
+                placeholder="Country"
+              />
+            </div>
+  
+            <div class="form-group d-none">
+              <input
+                id="sector"
+                class="form-control input"
+                name="sector"
+                type="text"
+                placeholder="Sector"
+              />
+            </div>
+  
+            <div class="form-group d-none">
+              <input
+                id="website"
+                class="form-control input"
+                name="website"
+                type="text"
+                placeholder="Website"
+              />
+            </div>
+  
+            <div class="form-group">
+              <input
                 id="register"
-                value="Register"
-                class="form-control btn btn-primary"
+                value="<%= data ? 'Update' : 'Register' %>"
+                class="form-control btn btn-secondary"
                 name="register"
-                style=""
+                type="submit"
               />
             </div>
           </form>
         </div>
         <div class="col-md-4 errors">
-          <% if(noErrors) {%>
-            <div class="alert alert-success">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">
-                &times;
-              </a>
-              <%= success %>
-            </div>
-          <% } %>
+          <p class="text-center text my-2 py-2 colorGreen bgGreen d-none success-message">
+            <i class="fa fa-check-circle square mr-1"></i>
+            <span><%= data ? 'Company was modifed successfully' : 'Company was created successfully' %></span>
+          </p>
+          <p class="text-center text my-2 py-2 colorYellow bgYellow d-none warning-message">
+            <i class="fa fa-warning square mr-1"></i>
+            <span>No data changed</span>
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<script src="/js/validate.js"></script>

@@ -1,8 +1,10 @@
+
 $(document).ready(function () {
-  
   let $form = $('#companyForm');
+  let isEditCompany = $form.data('isEdit');
   let $loading = $('.create-company .loading');
   let $successMessage = $('.create-company .success-message');
+  let $warningMessage = $('.create-company .warning-message');
   let $register = $('.create-company #register');
   let $input = $('.create-company .input');
 
@@ -17,6 +19,16 @@ $(document).ready(function () {
     address: '',
     image: ''
   };
+
+  let dataInit = {};
+
+  if (isEditCompany) {
+    dataInit = {
+      name: $('#name').val(),
+      address: $('#address').val(),
+      image: $('#image').attr('src'),
+    }
+  }
 
   $input.on('change paste keyup', function() {
     const value = $.trim($(this).val());
@@ -58,11 +70,21 @@ $(document).ready(function () {
       }
     });
 
+
+    if (isEditCompany && _.isEqual(dataInit, dataForm)) {
+      $warningMessage.removeClass('d-none');
+      $register.prop('disabled', true);
+      return;
+    }
+
     if (isValid) {
+      $warningMessage.addClass('d-none')
       $loading.removeClass('d-none');
       $register.prop('disabled', true);
+      const idCompany = $form.data('idCompany');
+
       $.ajax({
-        url: '/company/create',
+        url: isEditCompany ? `/company/${idCompany}` : '/company/create',
         type: 'POST',
         data: dataForm,
         success: function (data) {

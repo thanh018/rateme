@@ -52,25 +52,20 @@
           <% for(var i = 0; i < data.length; i++) { %>
             <% var total = arrayAverage(data[i].ratingNumber); %>
             <div class="col-md-4">
-              <a href="/company-profile/<%= data[i]._id %>" class="companyItem shadow-light">
-                <% if (data[i].image) {%>
+              <div class="companyItem shadow-light">
+                <a class="companyImage" href="/company-profile/<%= data[i]._id %>">
                   <img
                     src="/uploads/<%= data[i].image %>"
                     class="companyImage"
                     width="100px"
                     height="100px"
                   />
-                <%} else {%>
-                  <img
-                    src="/images/default.png"
-                    width="100px"
-                    height="100px"
-                    alt="Logo"
-                    class="companyImage"
-                  />
-                <%}%>
-                <div class="companyInfo">
-                  <h5 class="text my-1"><%= data[i].name %></h5>
+                </a>
+                <div class="companyInfo relative">
+                  <a href="/company/<%= data[i]._id %>" class="absolute colorGray d-block edit-link">
+                    <i class="fa fa-edit square"></i>
+                  </a>
+                  <a href="/company-profile/<%= data[i]._id %>" class="text my-1 colorMain d-block"><%= data[i].name %></a>
 
                   <% if (data[i].address) {%>
                     <i class="fa fa-map-marker square"></i>
@@ -82,7 +77,7 @@
                     (<%= data[i].ratingNumber.length %>) 
                   </span>
                 </div>
-              </a>
+              </div>
             </div>
           <% } %>
 

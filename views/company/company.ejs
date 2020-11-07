@@ -6,7 +6,7 @@
 
     <div class="container new-company-page pt-50">
       <div class="text-center">
-        <p class="mainTitle my-0">New company</p>
+        <p class="mainTitle my-0"><%= title %></p>
       </div>
       <div class="row mb-3 mr-0 justify-content-end">
         <a href="/companies" class="btn btn-secondary size-14 min-120 text-center">
@@ -21,6 +21,8 @@
             action="/company/create"
             enctype="multipart/form-data"
             method="POST"
+            data-is-edit="<%= data ? 1 : '' %>"
+            data-id-company="<%= data ? data.id : '' %>"
           >
             <div class="form-group">
               <div
@@ -28,8 +30,11 @@
                 data-toggle="modal"
                 data-target="#file"
               >
+                <%
+                  var image = (data && data.image) ? "/uploads/" + data.image : "/images/logo-default.png" 
+                %>
                 <img
-                  src="/images/logo-default.png"
+                  src="<%= image %>"
                   width="200"
                   height="200"
                   alt="Logo"
@@ -66,6 +71,7 @@
                           class="form-control upload-input input"
                           name="image"
                           id="image"
+                          src="<%= data ? data.image : '' %>"
                           style="display: none"
                         />
                       </div>
@@ -81,6 +87,7 @@
                 name="name"
                 type="text"
                 placeholder="Company name"
+                value="<%= data ? data.name : '' %>"
               />
               <p id="name-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Name is required</p>
 
@@ -93,6 +100,7 @@
                 name="address"
                 type="text"
                 placeholder="Address"
+                value="<%= data ? data.address : '' %>"
               />
               <p id="address-error" class="text-center text mt-3 py-1 colorRed bgRed d-none">Address is required</p>
 
@@ -141,7 +149,7 @@
             <div class="form-group">
               <input
                 id="register"
-                value="Register"
+                value="<%= data ? 'Update' : 'Register' %>"
                 class="form-control btn btn-secondary"
                 name="register"
                 type="submit"
@@ -152,7 +160,11 @@
         <div class="col-md-4 errors">
           <p class="text-center text my-2 py-2 colorGreen bgGreen d-none success-message">
             <i class="fa fa-check-circle square mr-1"></i>
-            <span>Company was created successfully</span>
+            <span><%= data ? 'Company was modifed successfully' : 'Company was created successfully' %></span>
+          </p>
+          <p class="text-center text my-2 py-2 colorYellow bgYellow d-none warning-message">
+            <i class="fa fa-warning square mr-1"></i>
+            <span>No data changed</span>
           </p>
         </div>
       </div>

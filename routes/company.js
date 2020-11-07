@@ -1,18 +1,14 @@
-var formidable = require('formidable');
 var path = require('path');
-var multer = require('multer');
-var fs = require('fs');
 var async = require('async');
 const upload = require('../config/uploadMiddleware');
 const Resize = require('../config/Resize');
-const isEmpty = require('lodash/isEmpty');
 
 var Company = require('../models/company');
 var User = require('../models/user');
 
 var { arrayAverage } = require('../utils/utils');
 
-module.exports = (app) => {
+module.exports = app => {
   app.get('/company/create', (req, res) => {
     var success = req.flash('success');
     res.render('company/company', {
@@ -20,6 +16,7 @@ module.exports = (app) => {
       user: req.user,
       success: success,
       noErrors: success.length > 0,
+      data: '',
     });
   });
 
@@ -78,6 +75,30 @@ module.exports = (app) => {
       });
     });
   });
+
+  app.get('/company/:id', (req, res) => {
+    Company.findOne({ _id: req.params.id }, (err, data) => {
+    console.log("data", data)
+      res.render('company/company', {
+        title: 'Edit company',
+        user: req.user,
+        id: req.params.id,
+        data: data,
+      });
+    });
+  });
+
+  app.post('/company/:id', (req, res) => {
+    Company.findOne({ _id: req.params.id }, (err, result) => {
+      if (err) res.status(400).json({ error: err });
+      result.image = req.body.image;
+      result.name = req.body.name;
+      result.address = req.body.address;
+
+      result.save(() => res.status(200).json({ company: result }));
+
+    });
+  })
 
   app.get('/company/register-employee/:id', (req, res) => {
     Company.findOne({ _id: req.params.id }, (err, data) => {

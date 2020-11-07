@@ -134,6 +134,22 @@
   .bgRed {
     background-color: #f8d7da;
   }
+  
+  .borderRed {
+    border: 1px solid #f5c6cb;
+  }
+
+  .colorYellow {
+    color: #856404;
+  }
+
+  .bgYellow {
+    background-color: #fff3cd;
+  }
+  
+  .borderYellow {
+    border: 1px solid #ffeeba;
+  }
 
   .borderRed {
     border: 1px solid #f5c6cb;
@@ -149,6 +165,10 @@
 
   .colorGreen {
     color: #155724 !important;
+  }
+
+  .borderGreen {
+    border: 1px solid #c3e6cb;
   }
 
   .bgGreen {
@@ -360,11 +380,22 @@
     border-radius: 5px 0 0 5px;
     width: 100px;
     height: 100px;
+    max-width: 100px;
   }
 
   .companyInfo {
     padding: 5px 15px;
     color: #4a4a4a;
+    flex-grow: 2;
+  }
+
+  .companyInfo .edit-link {
+    right: 8px;
+    top: 10px;
+  }
+
+  .companyInfo .edit-link:hover {
+    color: #ff410f;
   }
 /* end company */
 
@@ -408,23 +439,25 @@
   }
 /* end homepage */
 
+/* min width */
+.min-150 {
+  min-width: 150px;
+}
+
+.min-120 {
+  min-width: 120px;
+}
+
+.min-100 {
+  min-width: 100px;
+}
+/* end min width */
+
 /* Review */
   .btn-review.btn,
   .btn-custom.btn {
     min-width: 200px;
     font-size: 14px;
-  }
-
-  .min-150 {
-    min-width: 150px;
-  }
-
-  .min-120 {
-    min-width: 120px;
-  }
-
-  .min-100 {
-    min-width: 100px;
   }
 
   .reviewList {

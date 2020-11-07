@@ -9,9 +9,10 @@
 	<script>
 		$(document).ready(function () {
 			$.fn.raty.defaults.path = '/images/';
-			$('.star').raty({
+			const $star = $('.star');
+			$star.raty({
 				readOnly: true,
-				score: () => $(this).attr('data-score'),
+				score: function(){ return $(this).attr('data-score'); },
 			});
 		});    
 	</script>

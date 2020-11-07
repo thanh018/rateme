@@ -30,7 +30,7 @@ $(document).ready(function () {
     }
   }
 
-  $input.on('change', function() {
+  $input.on('change keyup', function() {
     const value = $.trim($(this).val());
     const id = $(this).prop('id');
     const $dangersMessage = $(`#${id}-error`);
@@ -96,7 +96,7 @@ $(document).ready(function () {
             }
           });
           if (data) {
-          $register.prop('disabled', false);
+            $register.prop('disabled', false);
             setTimeout(() => {
               window.location.href = 'http://localhost:5001/companies';
             }, 1500);

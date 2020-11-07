@@ -46,7 +46,7 @@ $(document).ready(function () {
     $rate.prop('disabled', disabled);
   });
 
-  $input.on('change paste keyup', function() {
+  $input.on('change', function() {
     const key = $(this).prop('id');
     errors[key] = $.trim($(`#${key}`).val());
     const $dangersMessage = $(`#${key}-error`);

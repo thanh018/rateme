@@ -9,7 +9,7 @@ $(document).ready(function () {
   const $dangersMessage = $('#avatar-error');
 
   const originalImage = $input.attr('src');
-  $input.on('change paste keyup', function() {
+  $input.on('change', function() {
     const value = $(this).val();
     value ? $dangersMessage.addClass('d-none') : $dangersMessage.removeClass('d-none');
     $updateProfileBtn.prop('disabled', !value);

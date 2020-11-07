@@ -40,6 +40,7 @@ $(document).ready(function () {
 
     const disabled = Object.keys(errors).some(key => !errors[key]);
     $register.prop('disabled', disabled);
+    $warningMessage.addClass('d-none')
   });
 
 
@@ -78,7 +79,6 @@ $(document).ready(function () {
     }
 
     if (isValid) {
-      $warningMessage.addClass('d-none')
       $loading.removeClass('d-none');
       $register.prop('disabled', true);
       const idCompany = $form.data('idCompany');

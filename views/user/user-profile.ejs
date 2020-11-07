@@ -76,6 +76,7 @@
                           class="form-control upload-input input"
                           name="image"
                           id="image"
+                          src="<%= user.avatar %>"
                           style="display: none"
                         />
                       </div>
@@ -146,6 +147,10 @@
           <p class="text-center text my-2 py-2 colorGreen bgGreen d-none success-message">
             <i class="fa fa-check-circle square mr-1"></i>
             <span>Profile was updated successfully</span>
+          </p>
+          <p class="text-center text my-2 py-2 colorYellow bgYellow d-none warning-message">
+            <i class="fa fa-warning square mr-1"></i>
+            <span>No data changed</span>
           </p>
         </div>
       </div>

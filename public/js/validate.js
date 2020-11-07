@@ -30,7 +30,7 @@ $(document).ready(function () {
     }
   }
 
-  $input.on('change paste keyup', function() {
+  $input.on('change', function() {
     const value = $.trim($(this).val());
     const id = $(this).prop('id');
     const $dangersMessage = $(`#${id}-error`);

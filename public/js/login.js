@@ -89,14 +89,13 @@
                 $alertDanger.addClass('d-none');
                 $successMessage.removeClass('d-none');
                 setTimeout(() => {
-                  // window.location.href = `http://localhost:5001/home`;
+                  window.location.href = `/home`;
                 }, 500)
               }
             },
             error: function (xhr, status, error) {
-              const errorText = xhr.responseJSON.error;
-              console.log(xhr.status, xhr.statusText);
-              if (xhr.responseJSON.error) {
+              const { message: errorText, success } = xhr.responseJSON;
+              if (!success) {
                 $submitBtn.prop('disabled', true);
                 $errorMessage.append(renderError(errorText));
                 ;

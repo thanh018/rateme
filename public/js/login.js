@@ -89,7 +89,7 @@
                 $alertDanger.addClass('d-none');
                 $successMessage.removeClass('d-none');
                 setTimeout(() => {
-                  window.location.href = `http://localhost:5001/home`;
+                  // window.location.href = `http://localhost:5001/home`;
                 }, 500)
               }
             },

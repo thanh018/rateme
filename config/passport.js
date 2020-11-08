@@ -3,39 +3,40 @@ var User = require('../models/user');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var secret = require('../secret/secret');
+const {
+  EMAIL,
+  PASSWORD,
+  USER_EXIST,
+  INCORRECT_EMAIL,
+  INCORRECT_PASSWORD
+} = require('../constants/common');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
-});
+passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
 
 passport.use(
   'local.signup',
   new LocalStrategy(
     {
-      usernameField: 'email',
-      passwordField: 'password',
+      usernameField: EMAIL,
+      passwordField: PASSWORD,
       passReqToCallback: true,
     },
     (req, email, password, done) => {
       User.findOne({ email: email }, (err, user) => {
         if (err) done(err);
 
-        if (user) return done(null, false, 'User with email already exist.');
+        if (user) return done(null, false, USER_EXIST);
 
         var newUser = new User();
         newUser.fullname = req.body.fullname;
         newUser.email = req.body.email;
         newUser.password = newUser.encryptPassword(req.body.password);
 
-        newUser.save((err) => {
-          return done(null, newUser);
-        });
+        newUser.save((err) => done(null, newUser));
       });
     },
   ),
@@ -45,20 +46,17 @@ passport.use(
   'local.login',
   new LocalStrategy(
     {
-      usernameField: 'email',
-      passwordField: 'password',
+      usernameField: EMAIL,
+      passwordField: PASSWORD,
       passReqToCallback: true,
     },
     (req, email, password, done) => {
       User.findOne({ email: email }, (err, user) => {
         if (err) return done(err);
 
-        if (!user) {
-          return done(null, false, 'Incorrect username.');
-        }
-        if (!user.validPassword(password)) {
-          return done(null, false, 'Incorrect password.');
-        }
+        if (!user) return done(null, false, INCORRECT_EMAIL);
+
+        if (!user.validPassword(password)) return done(null, false, INCORRECT_PASSWORD);
 
         return done(null, user);
       });

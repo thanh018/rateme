@@ -38,14 +38,23 @@
 
       let dataForm = {};
 
-      const renderError = text => `
-        <p class="alert alert-danger text-center radius-0 no-border py-2 text">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">
-            &times;
-          </a>
-          <span>${text}</span>
-        </p>
-      `;
+      const renderError = texts => {
+        const templateError = msg =>  `
+          <p class="alert alert-danger text-center py-2 text">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">
+              &times;
+            </a>
+            <span>${msg}</span>
+          </p>
+        `;
+        if (!texts.length) return '';
+        let htmlErrors = [];
+        if (texts.length && Array.isArray(texts)) {
+          texts.forEach(txt => htmlErrors.push(renderError(txt)));
+          return htmlErrors.join('');
+        }
+        return templateError(texts);
+      }
 
       $input.on('paste keyup', function () {
         const key = $(this).prop('name');
@@ -58,7 +67,6 @@
           $dangersMessage.removeClass('d-none');
         const disabled = Object.keys(errors).some(key => !errors[key]);
         $submitBtn.prop('disabled', disabled);
-        $errorMessage.find('.close').click();
       });
 
       $formUser.on('submit', e => {
@@ -79,6 +87,7 @@
         });
 
         if (isValid) {
+          $errorMessage.find('.close').click();
           $.ajax({
             url: isSignup ? '/signup' : '/login',
             type: 'POST',
@@ -94,11 +103,10 @@
               }
             },
             error: function (xhr, status, error) {
-              const { message: errorText, success } = xhr.responseJSON;
+              const { message, success } = _.get(xhr, 'responseJSON');
               if (!success) {
                 $submitBtn.prop('disabled', true);
-                $errorMessage.append(renderError(errorText));
-                ;
+                $errorMessage.append(renderError(message));
               }
             }
           })

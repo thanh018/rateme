@@ -4,11 +4,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var secret = require('../secret/secret');
 const {
-  EMAIL,
-  PASSWORD,
   USER_EXIST,
   INCORRECT_EMAIL,
-  INCORRECT_PASSWORD
+  INCORRECT_PASSWORD,
+  INVALID_EMAIL,
+  PASSWORD_ERROR,
+  FULLNAME_ERROR,
 } = require('../constants/common');
 
 passport.serializeUser((user, done) => {
@@ -21,11 +22,25 @@ passport.use(
   'local.signup',
   new LocalStrategy(
     {
-      usernameField: EMAIL,
-      passwordField: PASSWORD,
+      usernameField: 'email',
+      passwordField: 'password',
       passReqToCallback: true,
     },
     (req, email, password, done) => {
+      req.checkBody('fullname', FULLNAME_ERROR).isLength({ min: 5 });
+      req.checkBody('email', INVALID_EMAIL).isEmail();
+      req.checkBody('password', PASSWORD_ERROR).isLength({ min: 6, max: 20 });
+
+      const errors = req.validationErrors();
+      console.log("errors", errors)
+
+      if (errors) {
+        let messages = [];
+        errors.forEach(err => messages.push(err.msg));
+        // req.flash('error', messages); // for API get
+        return done(messages);
+      }
+
       User.findOne({ email: email }, (err, user) => {
         if (err) done(err);
 
@@ -46,11 +61,22 @@ passport.use(
   'local.login',
   new LocalStrategy(
     {
-      usernameField: EMAIL,
-      passwordField: PASSWORD,
+      usernameField: 'email',
+      passwordField: 'password',
       passReqToCallback: true,
     },
     (req, email, password, done) => {
+      req.checkBody('email', INVALID_EMAIL).isEmail();
+      req.checkBody('password', PASSWORD_ERROR).isLength({ min: 6, max: 20 });
+
+      const errors = req.validationErrors();
+
+      if (errors) {
+        let messages = [];
+        errors.forEach(err => messages.push(err.msg));
+        // req.flash('error', messages); // for API get
+        return done(messages);
+      }
       User.findOne({ email: email }, (err, user) => {
         if (err) return done(err);
 

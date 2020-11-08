@@ -43,7 +43,7 @@ module.exports = (app, passport) => {
 
   app.post('/signup', function(req, res, next) {
     passport.authenticate('local.signup', function(err, user, message) {
-      if (err) return next(err);
+      if (err) return res.status(400).json({ success: false, message: err });
 
       if (message) return res.status(401).json({ success: false, message });
 
@@ -57,10 +57,12 @@ module.exports = (app, passport) => {
 
   app.post('/login', function(req, res, next) {
     passport.authenticate('local.login', function(err, user, message) {
-      if (err) return next(err);
+      if (err) return res.status(400).json({ success: false, message: err });
 
       if (message) return res.status(401).json({ success: false, message });
+
       if (!user) { return res.redirect('/login'); }
+
       req.logIn(user, function(err) {
         if (err) { return next(err); }
         return res.status(200).json({ success: true, user });

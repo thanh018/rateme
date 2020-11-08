@@ -41,38 +41,31 @@ module.exports = (app, passport) => {
     }
   });
 
-  function loginPassport(req, res, next) {
-    passport.authenticate('local.login', function(err, user) {
-      if (err) return next(err);
-      if (!isEmpty(user)) {
-        res.status(200).json({ user })
-      }
-      next();
-    })(req, res, next);
-  }
-
   app.post('/signup', function(req, res, next) {
-    passport.authenticate('local.signup', function(err, user, info) {
-      if (err) return next(err);
+    passport.authenticate('local.signup', function(err, user, message) {
+      if (err) return res.status(400).json({ success: false, message: err });
 
-      if (info) { return res.status(400).json({ error: info }) }
+      if (message) return res.status(401).json({ success: false, message });
+
       if (!user) { return res.redirect('/signup'); }
       req.logIn(user, function(err) {
         if (err) { return next(err); }
-        return res.status(200).json({ user });
+        return res.status(200).json({ success: true, user });
       });
     })(req, res, next);
   });
 
   app.post('/login', function(req, res, next) {
-    passport.authenticate('local.login', function(err, user, info) {
-      if (err) return next(err);
+    passport.authenticate('local.login', function(err, user, message) {
+      if (err) return res.status(400).json({ success: false, message: err });
 
-      if (info) { return res.status(400).json({ error: info }) }
+      if (message) return res.status(401).json({ success: false, message });
+
       if (!user) { return res.redirect('/login'); }
+
       req.logIn(user, function(err) {
         if (err) { return next(err); }
-        return res.status(200).json({ user });
+        return res.status(200).json({ success: true, user });
       });
     })(req, res, next);
   });
@@ -351,14 +344,11 @@ function loginValidation(req, res, next) {
     .isLength({ min: 5 });
   //  req.check("password", "Password Must Contain at least 1 Number.").matches(/^(?=.*\d)(?=.*[a-z])[0-9a-z]{5,}$/, "i");
 
-  var loginErrors = req.validationErrors();
+  let loginErrors = req.validationErrors();
 
-  if (loginErrors) {
-    var messages = [];
-    loginErrors.forEach((error) => {
-      messages.push(error.msg);
-    });
-
+  if (loginErrors.length > 0) {
+    let messages = [];
+    loginErrors.forEach(error => messages.push(error.msg));
     req.flash('error', messages);
     res.redirect('/login');
   } else return next();

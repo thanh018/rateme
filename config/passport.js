@@ -3,16 +3,20 @@ var User = require('../models/user');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var secret = require('../secret/secret');
+const {
+  USER_EXIST,
+  INCORRECT_EMAIL,
+  INCORRECT_PASSWORD,
+  INVALID_EMAIL,
+  PASSWORD_ERROR,
+  FULLNAME_ERROR,
+} = require('../constants/common');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
-});
+passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
 
 passport.use(
   'local.signup',
@@ -23,19 +27,31 @@ passport.use(
       passReqToCallback: true,
     },
     (req, email, password, done) => {
+      req.checkBody('fullname', FULLNAME_ERROR).isLength({ min: 5 });
+      req.checkBody('email', INVALID_EMAIL).isEmail();
+      req.checkBody('password', PASSWORD_ERROR).isLength({ min: 6, max: 20 });
+
+      const errors = req.validationErrors();
+      console.log("errors", errors)
+
+      if (errors) {
+        let messages = [];
+        errors.forEach(err => messages.push(err.msg));
+        // req.flash('error', messages); // for API get
+        return done(messages);
+      }
+
       User.findOne({ email: email }, (err, user) => {
         if (err) done(err);
 
-        if (user) return done(null, false, 'User with email already exist.');
+        if (user) return done(null, false, USER_EXIST);
 
         var newUser = new User();
         newUser.fullname = req.body.fullname;
         newUser.email = req.body.email;
         newUser.password = newUser.encryptPassword(req.body.password);
 
-        newUser.save((err) => {
-          return done(null, newUser);
-        });
+        newUser.save((err) => done(null, newUser));
       });
     },
   ),
@@ -50,15 +66,23 @@ passport.use(
       passReqToCallback: true,
     },
     (req, email, password, done) => {
+      req.checkBody('email', INVALID_EMAIL).isEmail();
+      req.checkBody('password', PASSWORD_ERROR).isLength({ min: 6, max: 20 });
+
+      const errors = req.validationErrors();
+
+      if (errors) {
+        let messages = [];
+        errors.forEach(err => messages.push(err.msg));
+        // req.flash('error', messages); // for API get
+        return done(messages);
+      }
       User.findOne({ email: email }, (err, user) => {
         if (err) return done(err);
 
-        if (!user) {
-          return done(null, false, 'Incorrect username.');
-        }
-        if (!user.validPassword(password)) {
-          return done(null, false, 'Incorrect password.');
-        }
+        if (!user) return done(null, false, INCORRECT_EMAIL);
+
+        if (!user.validPassword(password)) return done(null, false, INCORRECT_PASSWORD);
 
         return done(null, user);
       });

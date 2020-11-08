@@ -8,12 +8,12 @@
     <ul class="d-flex align-items-center">
       <li class="">
         <a class="d-flex align-items-center nav-link font-bold colorGray radius-5 py-1 px-0" href="/user/profile">
-          <% if (user.avatar) { %>
+          <% if (user && user.avatar) { %>
             <img src="/uploads/<%= user.avatar %>" class="imgCircle mr-2" width="40px" height="40px" />
           <%} else { %>
             <img src="/images/default.png" class="imgCircle mr-2" width="40px" height="40px" />
           <% } %>
-          <span><%= user.fullname %></span>
+          <span><%= user && user.fullname %></span>
         </a>
       </li>
       <li class="ml-4"><a class="nav-link logout-link py-0 px-0" href="/logout">

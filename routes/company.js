@@ -34,7 +34,7 @@ module.exports = app => {
         // req.flash('success', 'Company data has been added.');
         res.status(200).json(company);
       })
-      .catch(err => res.status(400).json(`Error: ${err}`));
+      .catch(error => res.status(400).json({ error }));
   });
 
   app.post('/upload', upload.single('image'), async (req, res) => {

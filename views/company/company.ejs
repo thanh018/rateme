@@ -9,9 +9,22 @@
         <p class="mainTitle my-0"><%= title %></p>
       </div>
       <div class="row mb-3 mr-0 justify-content-end">
+        <a
+          href="/company-profile/<%= data._id %>"
+          class="
+            btn
+            btn-secondary
+            size-14 min-120
+            text-center mr-2
+            <%= data ? '' : 'd-none' %>
+          "
+        >
+          <i class="fa fa-info square mr-1"></i>
+          <span>Detail</span>
+        </a>
         <a href="/companies" class="btn btn-secondary size-14 min-120 text-center">
+          <i class="fa fa-list-ul square mr-1"></i>
           <span>Companies</span>
-          <i class="fa fa-arrow-right square ml-1"></i>
         </a>
       </div>
       <div class="row">

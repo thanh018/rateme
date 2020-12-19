@@ -5,7 +5,7 @@ const USER_EXIST = 'User with email already exist';
 const INCORRECT_EMAIL = 'Incorrect email';
 const INCORRECT_PASSWORD = 'Incorrect password';
 const EMAIL_REQUIRED = 'Email is required';
-const PASSPORT_REQUIRED = 'Password is required';
+const PASSWORD_REQUIRED = 'Password is required';
 const INVALID_EMAIL = 'Invalid email format';
 const PASSWORD_MIN = 6;
 const PASSWORD_MAX = 20;
@@ -22,7 +22,7 @@ module.exports = {
   INCORRECT_EMAIL,
   INCORRECT_PASSWORD,
   EMAIL_REQUIRED,
-  PASSPORT_REQUIRED,
+  PASSWORD_REQUIRED,
   INVALID_EMAIL,
   PASSWORD_MIN,
   PASSWORD_MAX,

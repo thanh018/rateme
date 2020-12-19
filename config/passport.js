@@ -7,6 +7,8 @@ const {
   USER_EXIST,
   INCORRECT_EMAIL,
   INCORRECT_PASSWORD,
+  EMAIL_REQUIRED,
+  PASSWORD_REQUIRED,
   INVALID_EMAIL,
   PASSWORD_ERROR,
   FULLNAME_ERROR,
@@ -66,6 +68,8 @@ passport.use(
       passReqToCallback: true,
     },
     (req, email, password, done) => {
+      req.checkBody('email', EMAIL_REQUIRED).notEmpty();
+      req.checkBody('password', PASSWORD_REQUIRED).notEmpty();
       req.checkBody('email', INVALID_EMAIL).isEmail();
       req.checkBody('password', PASSWORD_ERROR).isLength({ min: 6, max: 20 });
 

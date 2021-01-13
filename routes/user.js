@@ -7,6 +7,7 @@ var crypto = require('crypto');
 var User = require('../models/user');
 var Company = require('../models/company');
 var secret = require('../secret/secret');
+const sgMail = require('@sendgrid/mail');
 
 module.exports = (app, passport) => {
   app.get('/', (req, res) => {
@@ -104,7 +105,7 @@ module.exports = (app, passport) => {
     var errors = req.flash('error');
     var info = req.flash('info');
     res.render('user/forgot', {
-      title: 'Request Password Reset',
+      title: 'Request password reset',
       messages: errors,
       hasErrors: errors.length > 0,
       info: info,
@@ -113,70 +114,35 @@ module.exports = (app, passport) => {
   });
 
   app.post('/forgot', (req, res, next) => {
-    async.waterfall(
-      [
-        function (callback) {
-          crypto.randomBytes(20, (err, buf) => {
-            var rand = buf.toString('hex');
-            callback(err, rand);
-          });
-        },
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (!user) return res.status(401).json({ message: 'This email is not associated with any account' });
 
-        function (rand, callback) {
-          User.findOne({ email: req.body.email }, (err, user) => {
-            if (!user) {
-              req.flash(
-                'error',
-                'No account with that email exist or email is invalid',
-              );
-              return res.redirect('/forgot');
-            }
+        // Generate and set password reset token
+        user.generatePasswordReset();
 
-            user.passwordResetToken = rand;
-            user.passwordResetExpires = Date.now() + 60 * 60 * 1000;
+        // https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/
+        SENDGRID_APY_KEY = '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';
+        sgMail.setApiKey(SENDGRID_APY_KEY);
 
-            user.save((err) => {
-              callback(err, rand, user);
+        // Save the update user object
+        user.save()
+          .then(user => {
+            const mailOptions = {
+              to: user.email,
+              from: 'dtvan777@gmail.com',
+              subject: 'Password change request',
+              text: `Hi ${user.email}`,
+            };
+            sgMail.send(mailOptions, (error, result) => {
+              if (error) return res.status(500).json({message: error.message});
+
+              res.status(200).json({message: 'A reset email has been sent to ' + user.email + '.'});
             });
-          });
-        },
-
-        function (rand, user, callback) {
-          var smtpTransport = nodemailer.createTransport({
-            service: 'gmail',
-            host: 'smtp.gmail.com',
-            auth: {
-              user: secret.auth.user,
-              pass: secret.auth.pass,
-            },
-          });
-
-          var mailOptions = {
-            to: user.email,
-            from: 'RateMe ' + '<' + secret.auth.user + '>',
-            subject: 'RateMe Application Password Reset Token',
-            text:
-              'You have requested for password reset token. \n\n' +
-              'Please click on the link to complete the process: \n\n' +
-              'http://localhost:5001/reset/' +
-              rand +
-              '\n\n',
-          };
-
-          smtpTransport.sendMail(mailOptions, (err, response) => {
-            req.flash(
-              'info',
-              'A password reset token has been sent to ' + user.email,
-            );
-            return callback(err, user);
-          });
-        },
-      ],
-      (err) => {
-        if (err) return next(err);
-        res.redirect('/forgot');
-      },
-    );
+          })
+          .catch(error => res.status(500).json({ message: error }));
+      })
+      .catch(error => res.status(500).json({ message: error }));
   });
 
   app.get('/reset/:token', (req, res) => {

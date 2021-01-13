@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
+var crypto = require('crypto');
 
 var userSchema = mongoose.Schema({
   fullname: { type: String, required: true },
@@ -19,6 +20,11 @@ var userSchema = mongoose.Schema({
 
 userSchema.methods.encryptPassword = password => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+};
+
+userSchema.methods.generatePasswordReset = function() {
+  this.passwordResetToken = crypto.randomBytes(20).toString('hex');
+  this.passwordResetExpires = Date.now() + 3600000; // expires in an hour
 };
 
 userSchema.methods.validPassword = function (password) {

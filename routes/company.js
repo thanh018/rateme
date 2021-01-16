@@ -181,7 +181,7 @@ module.exports = app => {
     // Find a company that user has not registered yet and update employee
     const updateEmployeeToCompany = async () => {
       try {
-        await Company.update(
+        const company = await Company.update(
           {
             _id: req.params.id,
             'employees.employeeId': { $ne: req.user._id }, // not equal
@@ -196,8 +196,8 @@ module.exports = app => {
             },
           }
         )
-        .then(company => company)
-        .catch(error => console.log('Error ', error));
+        // company { n: 1, nModified: 1, ok: 1 }
+        return company;
       } catch (error) {
         console.log('Error ', error);
       }
@@ -211,9 +211,7 @@ module.exports = app => {
         const { name, image } = company;
         user.company.name = name;
         user.company.image = image;
-        user.save()
-          .then(usr => res.status(200).json({ user: usr }))
-          .catch(error => console.log('Error ', error))
+        return user;
       } catch (error) {
         console.log('Error ', error);
       }
@@ -221,7 +219,10 @@ module.exports = app => {
 
     Promise.all([updateEmployeeToCompany(), updateCompanyToUser()])
       .then(([ company, user ]) => {
-        console.log('All operations resolved successfully')
+        console.log('All operations resolved successfully');
+        user.save()
+          .then(usr => res.status(200).json({ user: usr }))
+          .catch(error => console.log('Error ', error))
       })
       .catch((error) => {
         console.error('There has been an error:', error)

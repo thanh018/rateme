@@ -22,12 +22,21 @@
                       <td><%= val.employeeFullname %></td>
                       <td><%= val.employeeRole %></td>
                       <td>
-                        <a 
-                          href="/message/<%= val.employeeId %>"
-                          class="btn btn-block btn-secondary size-14 min-100"
-                        >
-                          Send Message
-                        </a>
+                        <% if (val.employeeId.toString().trim() !== user._id.toString().trim()) { %>
+                          <a 
+                            href="/message/<%= val.employeeId %>"
+                            class="btn btn-block btn-secondary size-14 min-100"
+                          >
+                            Send Message
+                          </a>
+                        <% } else { %>
+                          <a 
+                            href="/user/profile"
+                            class="btn btn-block btn-secondary size-14 min-100"
+                          >
+                            Your account
+                          </a>
+                        <% } %>
                       </td>
                     </tr>
                   <% }) %>

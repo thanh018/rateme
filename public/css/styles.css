@@ -376,14 +376,16 @@
 /* begin company */
   .companyItem {
     display: flex;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     border-radius: 5px;
+    height: 160px;
+    padding: 10px;
   }
 
   .companyImage {
-    border-radius: 5px 0 0 5px;
-    width: 100px;
-    height: 100px;
+    border-radius: 5px;
+    width: 70px;
+    height: 70px;
     max-width: 100px;
   }
 
@@ -564,7 +566,13 @@
 }
 
 .shadow-light {
-  box-shadow: 0.5px 0.5px 2.5px 0.5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 2px #c4c7cc;
+  /* box-shadow: 0.5px 0.5px 2.5px 0.5px rgba(0, 0, 0, 0.2); */
+}
+
+.shadow-light:hover {
+  box-shadow: 0 8px 10px rgba(133,140,148,0.4), 0 0 2px #c4c7cc;
 }
 
 .logo {

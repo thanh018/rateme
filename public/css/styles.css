@@ -163,6 +163,10 @@
     background-color: #73879C;
   }
 
+  .bgLightGray {
+    background-color: #f0f0f0;
+  }
+
   .colorGreen {
     color: #155724 !important;
   }
@@ -492,8 +496,8 @@
 }
 
 .chat li {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   border-bottom: 1px dotted #B3A9A9;
 }
 

@@ -122,7 +122,7 @@ module.exports = (app, passport) => {
         user.generatePasswordReset();
 
         // https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/
-        SENDGRID_APY_KEY = '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';
+        const SENDGRID_APY_KEY = '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';
         sgMail.setApiKey(SENDGRID_APY_KEY);
 
         // Save the update user object
@@ -134,9 +134,10 @@ module.exports = (app, passport) => {
               subject: 'Password change request',
               text: `Hi ${user.email}`,
             };
+
             sgMail.send(mailOptions, (error, result) => {
               if (error) return res.status(500).json({message: error.message});
-
+              // return statusCode 202 but doesn't send mail
               res.status(200).json({message: 'A reset email has been sent to ' + user.email + '.'});
             });
           })

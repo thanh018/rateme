@@ -120,11 +120,11 @@
   }
 
   .colorOrange {
-    color: #ff410f !important;
+    color: #0caa41 !important;
   }
 
   .colorMain {
-    color: #ff410f !important;
+    color: #0caa41 !important;
   }
 
   .colorRed {
@@ -259,7 +259,7 @@
   }
 
   .navbar li a:hover {
-    color: #ff410f;
+    color: #0caa41;
   }
 
   .pt-50 {
@@ -359,7 +359,7 @@
   }
 
   .progress-bar {
-    background-color: #ff410f;
+    background-color: #0caa41;
   }
 /* end form */
 
@@ -399,7 +399,7 @@
   }
 
   .companyInfo .edit-link:hover {
-    color: #ff410f;
+    color: #0caa41;
   }
 /* end company */
 
@@ -545,17 +545,17 @@
 }
 
 /* override button */
-.btn-orange:hover,
+.btn-main:hover,
 .btn-secondary:hover,
-.btn-orange:focus,
+.btn-main:focus,
 .btn-secondary:focus {
-  background-color: #ff410f !important;
-  border-color: #ff410f !important;
+  background-color: #056b27 !important;
+  border-color: #056b27 !important;
   color: #fff !important;
 }
-.btn-orange {
-  background-color: #ff410f !important;
-  border-color: #ff410f !important;
+.btn-main, .btn-secondary {
+  background-color: #0caa41 !important;
+  border-color: #0caa41 !important;
   color: #fff !important;
 }
 

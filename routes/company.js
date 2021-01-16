@@ -176,6 +176,8 @@ module.exports = app => {
     ]);
     */
 
+    // -https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/
+
     // Find a company that user has not registered yet and update employee
     const updateEmployeeToCompany = async () => {
       try {

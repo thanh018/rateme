@@ -217,7 +217,13 @@ module.exports = app => {
       }
     };
 
-    Promise.all([updateEmployeeToCompany(), updateCompanyToUser()]);
+    Promise.all([updateEmployeeToCompany(), updateCompanyToUser()])
+      .then(([ company, user ]) => {
+        console.log('All operations resolved successfully')
+      })
+      .catch((error) => {
+        console.error('There has been an error:', error)
+      })
   });
 
   app.get('/:name/employees', (req, res) => {

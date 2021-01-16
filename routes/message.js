@@ -8,8 +8,8 @@ module.exports = (app) => {
     async.parallel(
       [
         function (callback) {
-          User.findById({ _id: req.params.id }, (err, result1) => {
-            callback(err, result1);
+          User.findById({ _id: req.params.id }, (err, currentUser) => {
+            callback(err, currentUser);
           });
         },
 
@@ -21,22 +21,20 @@ module.exports = (app) => {
                 { userFrom: req.params.id, userTo: req.user._id },
               ],
             },
-            (err, result2) => {
-              callback(err, result2);
+            (err, messages) => {
+              callback(err, messages);
             },
           );
         },
       ],
-      function (err, results) {
-        var data = results[0];
-        // console.log('results[0] ', results[0]);
-        var messages = results[1];
-        // console.log('results[1] ', results[1]);
+
+      function (error, [currentUser, messages]) {
+        if (error) console.log('Error ', error);
 
         res.render('messages/message', {
-          title: 'Private Message',
+          title: 'Private message',
           user: req.user,
-          data: data,
+          data: currentUser,
           chats: messages,
         });
       },
@@ -53,9 +51,8 @@ module.exports = (app) => {
       newMessage.body = req.body.message;
       newMessage.createdAt = new Date();
 
-      // console.log(newMessage);
-
-      newMessage.save((err) => {
+      newMessage.save((error) => {
+        if (error) console.log('Error ', error);
         res.redirect('/message/' + req.params.id);
       });
     });

@@ -1,5 +1,4 @@
 var path = require('path');
-var async = require('async');
 const upload = require('../config/uploadMiddleware');
 const Resize = require('../config/Resize');
 

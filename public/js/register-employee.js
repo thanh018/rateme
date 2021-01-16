@@ -32,8 +32,7 @@ $(document).ready(function () {
           role: value,
         },
         success: data => {
-        console.log("data", data)
-          if (data) {
+          if (!_.isEmpty(data)) {
             $successMessage.removeClass('d-none');
             setTimeout(() => {
               $loading.addClass('d-none');

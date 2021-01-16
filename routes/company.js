@@ -52,8 +52,8 @@ module.exports = app => {
   });
 
   app.get('/companies', (req, res) => {
+    /* Old version
     Company.find({}, (err, result) => {
-      
       res.render('company/companies', {
         title: 'Companies',
         user: req.user,
@@ -61,24 +61,37 @@ module.exports = app => {
         noData: 'No companies',
       });
     });
+    */
+    Company.find()
+      .then(companies =>
+        res.render('company/companies', {
+          success: true,
+          title: 'Companies',
+          user: req.user,
+          data: companies,
+          noData: 'No companies',
+        }))
+      .catch(error => res.status(400).json({ success: false, message: error.message }));
   });
 
   app.get('/company-profile/:id', (req, res) => {
-    Company.findOne({ _id: req.params.id }, (err, data) => {
+    Company.findOne({ _id: req.params.id })
+    .then(data => {
       var avg = arrayAverage(data.ratingNumber);
       res.render('company/company-profile', {
+        success: true,
         title: 'Company profile',
         user: req.user,
         id: req.params.id,
         data: data,
         average: avg,
       });
-    });
+    })
+    .catch(() => res.redirect('/companies'));
   });
 
   app.get('/company/:id', (req, res) => {
     Company.findOne({ _id: req.params.id }, (err, data) => {
-    console.log("data", data)
       res.render('company/company', {
         title: 'Edit company',
         user: req.user,
@@ -111,6 +124,7 @@ module.exports = app => {
   });
 
   app.post('/company/register-employee/:id', (req, res, next) => {
+    /* Old version
     async.parallel([
       function (callback) {
         // update employee for company
@@ -160,6 +174,50 @@ module.exports = app => {
         ]);
       },
     ]);
+    */
+
+    // Find a company that user has not registered yet and update employee
+    const updateEmployeeToCompany = async () => {
+      try {
+        await Company.update(
+          {
+            _id: req.params.id,
+            'employees.employeeId': { $ne: req.user._id }, // not equal
+          },
+          {
+            $push: {
+              employees: { // push a object to employees array
+                employeeId: req.user._id,
+                employeeFullname: req.user.fullname,
+                employeeRole: req.body.role,
+              },
+            },
+          }
+        )
+        .then(company => company)
+        .catch(error => console.log('Error ', error));
+      } catch (error) {
+        console.log('Error ', error);
+      }
+    };
+    // Update company's name and image to User Info
+    const updateCompanyToUser = async () => {
+      try {
+        const company = await Company.findById(req.params.id);
+        const user = await User.findById(req.user._id);
+
+        const { name, image } = company;
+        user.company.name = name;
+        user.company.image = image;
+        user.save()
+          .then(usr => res.status(200).json({ user: usr }))
+          .catch(error => console.log('Error ', error))
+      } catch (error) {
+        console.log('Error ', error);
+      }
+    };
+
+    Promise.all([updateEmployeeToCompany(), updateCompanyToUser()]);
   });
 
   app.get('/:name/employees', (req, res) => {

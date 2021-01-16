@@ -164,7 +164,7 @@
   }
 
   .bgLightGray {
-    background-color: #f0f0f0;
+    background-color: #f0f0f078
   }
 
   .colorGreen {
@@ -496,8 +496,7 @@
 }
 
 .chat li {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding: 15px;
   border-bottom: 1px dotted #B3A9A9;
 }
 
@@ -562,10 +561,6 @@
 
 .shadow-medium {
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2);
-}
-
-.shadow-light {
-  /* box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2); */
 }
 
 .shadow-light {

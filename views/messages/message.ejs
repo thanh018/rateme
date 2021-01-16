@@ -22,9 +22,15 @@
                   <% chats.forEach(function(val) { %>
                     <% if (data._id.toString().trim() == val.userTo.toString().trim()) { %>
                       <li class="left clearfix bgLightGray">
+                        <span class="chat-img pull-left">
+                          <img
+                            src="http://placehold.it/50/00b14f/fff&amp;text=M"
+                            alt="Me Avatar"
+                            class="img-circle"
+                          />
+                        </span>
                     <% } else { %>
                       <li class="left clearfix">
-                    <% } %>
                         <span class="chat-img pull-left">
                           <img
                             src="http://placehold.it/50/55C1E7/fff&amp;text=U"
@@ -32,6 +38,7 @@
                             class="img-circle"
                           />
                         </span>
+                    <% } %>
                         <div class="chat-body clearfix">
                           <div class="header">
                             <strong class="primary-font"

@@ -127,6 +127,10 @@
     color: #0caa41 !important;
   }
 
+  .colorBlack {
+    color: rgb(32, 38, 46);
+  }
+
   .colorRed {
     color: #721c24;
   }
@@ -196,10 +200,14 @@
     border: none !important;
   }
 
+  a {
+    color: #0caa41;
+  }
+
   a:hover,
   a:focus {
     text-decoration: none;
-    /* color: #ff410f; */
+    color: #056b27;
   }
 
   .mainTitle {
